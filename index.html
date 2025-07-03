@@ -1,351 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boost My Skills - 20+ Free Online Tools for Productivity</title>
-    <meta name="description" content="A suite of 20+ free, modern, and easy-to-use online tools. Includes calculators, converters, developer tools, and more for your daily tasks.">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
-
-    <style>
-        /* ======== FINAL CSS: NEON, ANIMATED, RESPONSIVE ======== */
-
-        :root {
-            /* Dark Theme (Default) */
-            --primary-color: #9f78ff; /* Vibrant Purple */
-            --primary-hover: #8e5aff;
-            --background-color: #0f0f1b; /* Deep Space Blue */
-            --surface-color: #1a1a2e; /* Darker Navy Surface */
-            --text-color: #e0e0e0;
-            --light-text-color: #a0a0a0;
-            --border-color-glass: rgba(255, 255, 255, 0.1);
-            --shadow-color: rgba(159, 120, 255, 0.4);
-            --transition-speed: 0.4s;
-            --border-radius: 16px;
-        }
-
-        body[data-theme="light"] {
-            /* Light Theme */
-            --primary-color: #0056b3;
-            --primary-hover: #00418a;
-            --background-color: #f0f2f5;
-            --surface-color: #ffffff;
-            --text-color: #333333;
-            --light-text-color: #6c757d;
-            --border-color-glass: rgba(0, 0, 0, 0.1);
-            --shadow-color: rgba(0, 86, 179, 0.2);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.7;
-            overflow-x: hidden;
-            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-        }
-        #particle-canvas {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-        }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        a { text-decoration: none; color: var(--primary-color); font-weight: 600; }
-
-        .header {
-            background: rgba(15, 15, 27, 0.7);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color-glass);
-            padding: 1rem 0;
-            position: sticky; top: 0; z-index: 1000;
-            transition: background-color var(--transition-speed) ease;
-        }
-        body[data-theme="light"] .header { background: rgba(255, 255, 255, 0.7); }
-        .header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
-        .nav-menu { display: flex; align-items: center; gap: 15px; }
-        .nav-menu a { color: var(--text-color); font-weight: 400; position: relative; padding: 5px; transition: color var(--transition-speed) ease; }
-        .nav-menu a:hover { color: var(--primary-color); }
-        .nav-menu a.active { color: var(--primary-color); font-weight: 600; }
-        
-        .theme-switcher { display: flex; align-items: center; }
-        #theme-toggle { display: none; }
-        .slider { cursor: pointer; width: 50px; height: 25px; background-color: #333; border-radius: 25px; position: relative; transition: background-color var(--transition-speed) ease; }
-        .slider::before { content: ''; position: absolute; height: 19px; width: 19px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: transform var(--transition-speed) ease; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.836 17.836a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.06l1.591-1.591zM12 18a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.894 17.836a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 001.06 1.06l1.591-1.591zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.106 6.106a.75.75 0 00-1.06-1.06l-1.59 1.591a.75.75 0 101.06 1.06l1.59-1.591z"/></svg>'); background-size: 13px; background-repeat: no-repeat; background-position: center; }
-        #theme-toggle:checked + .slider { background-color: var(--primary-color); }
-        #theme-toggle:checked + .slider::before { transform: translateX(25px); background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-3.51 1.713-6.625 4.382-8.442a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>');}
-
-        .hero {
-            padding: 80px 0; text-align: center; position: relative; overflow: hidden;
-        }
-        .hero h1 { font-size: 3.2rem; color: #fff; text-shadow: 0 2px 15px rgba(0,0,0,0.5); }
-        .hero p { font-size: 1.2rem; color: #fff; max-width: 600px; margin: 20px auto 0; opacity: 0.9; }
-        body[data-theme="light"] .hero h1, body[data-theme="light"] .hero p { color: var(--text-color); text-shadow: none;}
-
-        .section { padding: 60px 0; }
-        .section-title { text-align: center; font-size: 2.8rem; margin-bottom: 60px; color: var(--text-color); animation: fadeIn 1s ease-out; }
-        
-        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 30px; }
-        .tool-card {
-            background: var(--surface-color); color: var(--text-color);
-            border-radius: var(--border-radius); padding: 25px; text-align: center;
-            position: relative; overflow: hidden;
-            animation: card-load-animation 0.5s ease-out forwards;
-            opacity: 0; animation-delay: var(--animation-delay, 0s);
-        }
-        .tool-card::before {
-            content: ''; position: absolute; top: 0; left: 0;
-            width: 200%; height: 100%;
-            background: conic-gradient(from 180deg at 50% 50%, var(--primary-color) 0deg, #ff8a00 90deg, #e52e71 180deg, var(--primary-color) 270deg, var(--primary-color) 360deg);
-            animation: animated-border 4s linear infinite;
-            opacity: 0; transition: opacity var(--transition-speed) ease;
-        }
-        .tool-card:hover::before { opacity: 1; }
-        .card-content {
-            background: var(--surface-color);
-            border-radius: calc(var(--border-radius) - 2px);
-            position: relative; z-index: 1;
-            padding: 20px; margin: 2px;
-            height: calc(100% - 4px); width: calc(100% - 4px);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: background-color var(--transition-speed) ease;
-        }
-        .tool-card:hover .card-content { background-color: var(--background-color); }
-        .tool-card i { font-size: 2.8rem; color: var(--primary-color); margin-bottom: 20px; transition: transform var(--transition-speed) ease; }
-        .tool-card h3 { font-size: 1.2rem; color: var(--text-color); font-weight: 600; }
-        .tool-card:hover i { transform: scale(1.1); }
-
-        .blog-card { background: var(--surface-color); border-radius: var(--border-radius); transition: all var(--transition-speed) ease; }
-        .blog-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px var(--shadow-color); }
-        .blog-card-content { padding: 25px; }
-        .btn { display: inline-block; background-color: var(--primary-color); color: #121212 !important; padding: 10px 25px; border-radius: 50px; font-weight: 700; transition: all var(--transition-speed) ease; }
-        .btn:hover { background-color: var(--primary-hover); transform: scale(1.05); }
-
-        .footer {
-            background-color: var(--surface-color); border-top: 1px solid var(--border-color-glass);
-            padding: 50px 0 20px; margin-top: 50px; position: relative; z-index: 1;
-        }
-        .footer-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; margin-bottom: 40px; }
-        .footer-column h4 { color: var(--primary-color); margin-bottom: 15px; }
-        .footer-column ul { list-style: none; padding: 0; }
-        .footer-column ul li { margin-bottom: 10px; }
-        .footer-column ul li a { color: var(--light-text-color); font-weight: 400; transition: all var(--transition-speed) ease; }
-        .footer-column ul li a:hover { color: var(--primary-color); padding-left: 5px; }
-        .copyright { text-align: center; border-top: 1px solid var(--border-color-glass); padding-top: 20px; margin-top: 20px; color: var(--light-text-color); }
-        
-        .popup {
-            position: fixed; bottom: 20px; right: 20px; background: var(--surface-color);
-            border: 1px solid var(--border-color-glass); padding: 20px;
-            border-radius: var(--border-radius); box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-            z-index: 1001; max-width: 350px; display: none;
-            animation: slideInUp 0.5s ease-out forwards;
-        }
-        .popup p { margin: 0 0 15px; font-size: 0.95rem; }
-        .popup-icons { display: flex; gap: 20px; justify-content: center; }
-        .popup-icons a { font-size: 1.8rem; transition: transform var(--transition-speed) ease; }
-        .popup-icons a:hover { transform: scale(1.2); }
-        .popup-icons .fa-whatsapp { color: #25D366; } .popup-icons .fa-envelope { color: #fff; }
-        body[data-theme="light"] .popup-icons .fa-envelope { color: #EA4335; }
-        .popup-close { position: absolute; top: 5px; right: 10px; background: none; border: none; font-size: 1.5rem; color: var(--light-text-color); cursor: pointer; }
-
-        @keyframes animated-gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes slideInUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes animated-border { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes card-load-animation { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        @media (max-width: 992px) { .footer-links { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; } .section-title { font-size: 2rem; }
-            .nav-menu { gap: 10px; } .nav-menu a { margin: 0; font-size: 0.9rem; }
-            .tool-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
-            .tool-card { padding: 0; } .card-content { padding: 15px; }
-            .tool-card i { font-size: 2rem; } .tool-card h3 { font-size: 0.9rem; }
-        }
-        @media (max-width: 480px) {
-            .header .container { flex-direction: column; gap: 15px; }
-            .tool-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero { padding: 60px 20px; } .hero h1 { font-size: 1.8rem; } .hero p { font-size: 1rem; }
-            .section { padding: 40px 0; } .footer-links { grid-template-columns: 1fr; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boost My Skills - Home</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/icons/favicon.ico" />
 </head>
 <body>
-    <canvas id="particle-canvas"></canvas>
 
-    <header class="header">
-        <div class="container">
-            <a href="/index.html" class="logo">
-                <img src="/assets/images/logo.png" alt="Boost My Skills Logo">
-                <span>Boost My Skills</span>
-            </a>
-            <nav class="nav-menu">
-                <a href="/index.html" class="active">Home</a>
-                <a href="/about.html">About</a>
-                <a href="/contact.html">Contact</a>
-                <a href="/blog/tool-usage-tips.html">Blog</a>
-                <div class="theme-switcher">
-                    <input type="checkbox" id="theme-toggle">
-                    <label for="theme-toggle" class="slider"></label>
-                </div>
-            </nav>
-        </div>
-    </header>
+  <!-- 🔺 Popup (Top-Right) -->
+  <div class="popup">
+    <p>If you’re facing any issue or error, please contact us.</p>
+    <a href="https://wa.me/923427941197" target="_blank">📱</a>
+    <a href="mailto:boostmyskillsxyz@gmail.com">✉️</a>
+  </div>
 
-    <main>
-        <section class="hero">
-            <h1>Supercharge Your Productivity</h1>
-            <p>Your ultimate destination for a suite of 20 powerful and easy-to-use online tools, designed to simplify your tasks and boost your skills.</p>
-        </section>
+  <!-- 🔹 Header -->
+  <header>
+    <img src="assets/images/logo.png" alt="Logo" class="logo" />
+    <h1>Boost My Skills</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="blog/tool-usage-tips.html">Blog</a>
+    </nav>
+  </header>
 
-        <section class="section">
-            <div class="container">
-                <h2 class="section-title">Our Free Tools</h2>
-                <div class="tool-grid">
-                    <a href="/tools/bmi-calculator.html" class="tool-card" style="--animation-delay: 0.1s;"><div class="card-content"><i class="fas fa-calculator"></i><h3>BMI Calculator</h3></div></a>
-                    <a href="/tools/typing-test.html" class="tool-card" style="--animation-delay: 0.15s;"><div class="card-content"><i class="fas fa-keyboard"></i><h3>Typing Test</h3></div></a>
-                    <a href="/tools/age-calculator.html" class="tool-card" style="--animation-delay: 0.2s;"><div class="card-content"><i class="fas fa-calendar-days"></i><h3>Age Calculator</h3></div></a>
-                    <a href="/tools/unit-converter.html" class="tool-card" style="--animation-delay: 0.25s;"><div class="card-content"><i class="fas fa-ruler-combined"></i><h3>Unit Converter</h3></div></a>
-                    <a href="/tools/resume-builder.html" class="tool-card" style="--animation-delay: 0.3s;"><div class="card-content"><i class="fas fa-file-alt"></i><h3>Resume Builder</h3></div></a>
-                    <a href="/tools/word-counter.html" class="tool-card" style="--animation-delay: 0.35s;"><div class="card-content"><i class="fas fa-file-word"></i><h3>Word Counter</h3></div></a>
-                    <a href="/tools/password-generator.html" class="tool-card" style="--animation-delay: 0.4s;"><div class="card-content"><i class="fas fa-key"></i><h3>Password Generator</h3></div></a>
-                    <a href="/tools/qr-code-generator.html" class="tool-card" style="--animation-delay: 0.45s;"><div class="card-content"><i class="fas fa-qrcode"></i><h3>QR Code Generator</h3></div></a>
-                    <a href="/tools/stopwatch.html" class="tool-card" style="--animation-delay: 0.5s;"><div class="card-content"><i class="fas fa-stopwatch"></i><h3>Stopwatch</h3></div></a>
-                    <a href="/tools/countdown-timer.html" class="tool-card" style="--animation-delay: 0.55s;"><div class="card-content"><i class="fas fa-hourglass-half"></i><h3>Countdown Timer</h3></div></a>
-                    <a href="/tools/emi-calculator.html" class="tool-card" style="--animation-delay: 0.6s;"><div class="card-content"><i class="fas fa-percent"></i><h3>EMI Calculator</h3></div></a>
-                    <a href="/tools/case-converter.html" class="tool-card" style="--animation-delay: 0.65s;"><div class="card-content"><i class="fas fa-font-case"></i><h3>Case Converter</h3></div></a>
-                    <a href="/tools/markdown-to-html.html" class="tool-card" style="--animation-delay: 0.7s;"><div class="card-content"><i class="fab fa-markdown"></i><h3>Markdown to HTML</h3></div></a>
-                    <a href="/tools/online-notepad.html" class="tool-card" style="--animation-delay: 0.75s;"><div class="card-content"><i class="fas fa-sticky-note"></i><h3>Online Notepad</h3></div></a>
-                    <a href="/tools/color-picker.html" class="tool-card" style="--animation-delay: 0.8s;"><div class="card-content"><i class="fas fa-palette"></i><h3>Color Picker</h3></div></a>
-                    <a href="/tools/random-number-generator.html" class="tool-card" style="--animation-delay: 0.85s;"><div class="card-content"><i class="fas fa-random"></i><h3>Random Number Generator</h3></div></a>
-                    <a href="/tools/palindrome-checker.html" class="tool-card" style="--animation-delay: 0.9s;"><div class="card-content"><i class="fas fa-arrows-left-right"></i><h3>Palindrome Checker</h3></div></a>
-                    <a href="/tools/number-to-words.html" class="tool-card" style="--animation-delay: 0.95s;"><div class="card-content"><i class="fas fa-spell-check"></i><h3>Number to Words</h3></div></a>
-                    <a href="/tools/quiz-app.html" class="tool-card" style="--animation-delay: 1s;"><div class="card-content"><i class="fas fa-question-circle"></i><h3>Quiz App</h3></div></a>
-                    <a href="/tools/ip-finder.html" class="tool-card" style="--animation-delay: 1.05s;"><div class="card-content"><i class="fas fa-location-dot"></i><h3>IP Finder</h3></div></a>
-                </div>
-            </div>
-        </section>
-    </main>
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-links">
-                <div class="footer-column"><h4>Calculators & Converters</h4><ul><li><a href="/tools/bmi-calculator.html">BMI Calculator</a></li><li><a href="/tools/age-calculator.html">Age Calculator</a></li><li><a href="/tools/unit-converter.html">Unit Converter</a></li><li><a href="/tools/emi-calculator.html">EMI Calculator</a></li><li><a href="/tools/number-to-words.html">Number to Words</a></li></ul></div>
-                <div class="footer-column"><h4>Text & Content Tools</h4><ul><li><a href="/tools/typing-test.html">Typing Test</a></li><li><a href="/tools/resume-builder.html">Resume Builder</a></li><li><a href="/tools/word-counter.html">Word Counter</a></li><li><a href="/tools/case-converter.html">Case Converter</a></li><li><a href="/tools/online-notepad.html">Online Notepad</a></li></ul></div>
-                <div class="footer-column"><h4>Developer Tools</h4><ul><li><a href="/tools/password-generator.html">Password Generator</a></li><li><a href="/tools/qr-code-generator.html">QR Code Generator</a></li><li><a href="/tools/markdown-to-html.html">Markdown to HTML</a></li><li><a href="/tools/color-picker.html">Color Picker</a></li><li><a href="/tools/ip-finder.html">IP Finder</a></li></ul></div>
-                <div class="footer-column"><h4>Other Utilities</h4><ul><li><a href="/tools/stopwatch.html">Stopwatch</a></li><li><a href="/tools/countdown-timer.html">Countdown Timer</a></li><li><a href="/tools/random-number-generator.html">Random Number Generator</a></li><li><a href="/tools/palindrome-checker.html">Palindrome Checker</a></li><li><a href="/tools/quiz-app.html">Quiz App</a></li></ul></div>
-            </div>
-            <div class="copyright">&copy; 2025–2026 Boost My Skills. All rights reserved.</div>
-        </div>
-    </footer>
-    <div class="popup" id="contact-popup">
-        <p>If you’re facing any issue or error, please contact us.</p>
-        <div class="popup-icons">
-            <a href="https://wa.me/923427941197" target="_blank" aria-label="Contact on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            <a href="mailto:boostmyskillsxyz@gmail.com" aria-label="Send an Email"><i class="fas fa-envelope"></i></a>
-        </div>
-        <button class="popup-close" id="popup-close-btn">&times;</button>
+  <!-- 🟢 Welcome Message -->
+  <section class="welcome">
+    <h2>Welcome to Boost My Skills</h2>
+    <p>Explore 20+ free tools to boost your productivity, skills, and creativity — all in one place!</p>
+  </section>
+
+  <!-- 🧰 Tools Grid -->
+  <section class="tools">
+    <h2>Our Free Tools</h2>
+    <div class="tool-grid">
+      <a href="tools/bmi-calculator.html">BMI Calculator</a>
+      <a href="tools/typing-test.html">Typing Speed Test</a>
+      <a href="tools/age-calculator.html">Age Calculator</a>
+      <a href="tools/unit-converter.html">Unit Converter</a>
+      <a href="tools/resume-builder.html">Resume Builder</a>
+      <a href="tools/word-counter.html">Word Counter</a>
+      <a href="tools/password-generator.html">Password Generator</a>
+      <a href="tools/qr-code-generator.html">QR Code Generator</a>
+      <a href="tools/stopwatch.html">Stopwatch</a>
+      <a href="tools/countdown-timer.html">Countdown Timer</a>
+      <a href="tools/emi-calculator.html">EMI Calculator</a>
+      <a href="tools/case-converter.html">Case Converter</a>
+      <a href="tools/markdown-to-html.html">Markdown to HTML</a>
+      <a href="tools/online-notepad.html">Online Notepad</a>
+      <a href="tools/color-picker.html">Color Picker</a>
+      <a href="tools/random-number-generator.html">Random Number Generator</a>
+      <a href="tools/palindrome-checker.html">Palindrome Checker</a>
+      <a href="tools/number-to-words.html">Number to Words</a>
+      <a href="tools/quiz-app.html">Quiz App</a>
+      <a href="tools/ip-finder.html">IP Finder</a>
     </div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Particle background animation
-            const canvas = document.getElementById('particle-canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            let particles = [];
-            const particleCount = 50;
+  </section>
 
-            const particleColors = {
-                dark: 'rgba(159, 120, 255, 0.5)',
-                light: 'rgba(0, 86, 179, 0.5)'
-            };
+  <!-- 📰 Blog Preview -->
+  <section class="blog-preview">
+    <h2>Latest Blog Posts</h2>
+    <ul>
+      <li><a href="blog/tool-usage-tips.html">Top 5 Tool Usage Tips</a></li>
+      <li><a href="blog/productivity-hacks.html">Simple Productivity Hacks</a></li>
+      <li><a href="blog/boost-your-efficiency.html">Boost Efficiency with Free Tools</a></li>
+    </ul>
+  </section>
 
-            class Particle {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2 + 1;
-                    this.speedX = Math.random() * 1 - 0.5;
-                    this.speedY = Math.random() * 1 - 0.5;
-                }
-                update() {
-                    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                }
-                draw() {
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    const currentTheme = document.body.getAttribute('data-theme');
-                    ctx.fillStyle = (currentTheme === 'light') ? particleColors.light : particleColors.dark;
-                    ctx.fill();
-                }
-            }
+  <!-- 🔻 Footer -->
+  <footer>
+    <p>© 2025–2026 Boost My Skills. All rights reserved.</p>
+    <div class="footer-tools">
+      <strong>All Tools:</strong><br />
+      BMI, Typing Test, Age Calculator, Unit Converter, Resume Builder, Word Counter, Password Generator, QR Generator, Stopwatch, Timer, EMI, Case Converter, Markdown Converter, Notepad, Color Picker, Random Generator, Palindrome Checker, Number to Words, Quiz, IP Finder
+    </div>
+  </footer>
 
-            function initParticles() {
-                particles = [];
-                for (let i = 0; i < particleCount; i++) {
-                    particles.push(new Particle());
-                }
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
-                }
-                requestAnimationFrame(animateParticles);
-            }
-            initParticles();
-            animateParticles();
-            window.addEventListener('resize', () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                initParticles();
-            });
-
-            // Theme Switcher
-            const themeToggle = document.getElementById('theme-toggle');
-            const applyTheme = () => {
-                const currentTheme = localStorage.getItem('theme');
-                if (currentTheme === 'light') {
-                    document.body.setAttribute('data-theme', 'light');
-                    themeToggle.checked = true;
-                } else {
-                    document.body.removeAttribute('data-theme');
-                    themeToggle.checked = false;
-                }
-            };
-            themeToggle.addEventListener('change', () => {
-                const isChecked = themeToggle.checked;
-                document.body.setAttribute('data-theme', isChecked ? 'light' : 'dark');
-                localStorage.setItem('theme', isChecked ? 'light' : 'dark');
-            });
-            applyTheme();
-
-            // Popup
-            const contactPopup = document.getElementById('contact-popup');
-            const closePopupBtn = document.getElementById('popup-close-btn');
-            if (contactPopup && !sessionStorage.getItem('popupClosed')) {
-                setTimeout(() => {
-                    contactPopup.style.display = 'block';
-                }, 5000);
-            }
-            if (closePopupBtn) {
-                closePopupBtn.addEventListener('click', () => {
-                    contactPopup.style.display = 'none';
-                    sessionStorage.setItem('popupClosed', 'true');
-                });
-            }
-        });
-    </script>
 </body>
-</html>
+    </html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boost My Skills - Home</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="assets/icons/favicon.ico" />
+</head>
+<body>
+
+  <!-- 🔺 Popup (Top-Right) -->
+  <div class="popup">
+    <p>If you’re facing any issue or error, please contact us.</p>
+    <a href="https://wa.me/923427941197" target="_blank">📱</a>
+    <a href="mailto:boostmyskillsxyz@gmail.com">✉️</a>
+  </div>
+
+  <!-- 🔹 Header -->
+  <header>
+    <img src="assets/images/logo.png" alt="Logo" class="logo" />
+    <h1>Boost My Skills</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="blog/tool-usage-tips.html">Blog</a>
+    </nav>
+  </header>
+
+  <!-- 🟢 Welcome Message -->
+  <section class="welcome">
+    <h2>Welcome to Boost My Skills</h2>
+    <p>Explore 20+ free tools to boost your productivity, skills, and creativity — all in one place!</p>
+  </section>
+
+  <!-- 🧰 Tools Grid -->
+  <section class="tools">
+    <h2>Our Free Tools</h2>
+    <div class="tool-grid">
+      <a href="tools/bmi-calculator.html">BMI Calculator</a>
+      <a href="tools/typing-test.html">Typing Speed Test</a>
+      <a href="tools/age-calculator.html">Age Calculator</a>
+      <a href="tools/unit-converter.html">Unit Converter</a>
+      <a href="tools/resume-builder.html">Resume Builder</a>
+      <a href="tools/word-counter.html">Word Counter</a>
+      <a href="tools/password-generator.html">Password Generator</a>
+      <a href="tools/qr-code-generator.html">QR Code Generator</a>
+      <a href="tools/stopwatch.html">Stopwatch</a>
+      <a href="tools/countdown-timer.html">Countdown Timer</a>
+      <a href="tools/emi-calculator.html">EMI Calculator</a>
+      <a href="tools/case-converter.html">Case Converter</a>
+      <a href="tools/markdown-to-html.html">Markdown to HTML</a>
+      <a href="tools/online-notepad.html">Online Notepad</a>
+      <a href="tools/color-picker.html">Color Picker</a>
+      <a href="tools/random-number-generator.html">Random Number Generator</a>
+      <a href="tools/palindrome-checker.html">Palindrome Checker</a>
+      <a href="tools/number-to-words.html">Number to Words</a>
+      <a href="tools/quiz-app.html">Quiz App</a>
+      <a href="tools/ip-finder.html">IP Finder</a>
+    </div>
+  </section>
+
+  <!-- 📰 Blog Preview -->
+  <section class="blog-preview">
+    <h2>Latest Blog Posts</h2>
+    <ul>
+      <li><a href="blog/tool-usage-tips.html">Top 5 Tool Usage Tips</a></li>
+      <li><a href="blog/productivity-hacks.html">Simple Productivity Hacks</a></li>
+      <li><a href="blog/boost-your-efficiency.html">Boost Efficiency with Free Tools</a></li>
+    </ul>
+  </section>
+
+  <!-- 🔻 Footer -->
+  <footer>
+    <p>© 2025–2026 Boost My Skills. All rights reserved.</p>
+    <div class="footer-tools">
+      <strong>All Tools:</strong><br />
+      BMI, Typing Test, Age Calculator, Unit Converter, Resume Builder, Word Counter, Password Generator, QR Generator, Stopwatch, Timer, EMI, Case Converter, Markdown Converter, Notepad, Color Picker, Random Generator, Palindrome Checker, Number to Words, Quiz, IP Finder
+    </div>to 
+  </footer>
+
+</body>
+          </html>
