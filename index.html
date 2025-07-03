@@ -12,9 +12,244 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="/css/style.css">
-    
     <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+
+    <style>
+        /* ======== Naya "Modern & Cool" CSS Code ======== */
+
+        /* ======== Root Variables (New Dark Palette) ======== */
+        :root {
+            --primary-color: #00f5c8; /* A vibrant mint/cyan accent */
+            --primary-hover: #00d1ac;
+            --background-color: #1a1a2e; /* Deep navy blue */
+            --surface-color: #2a2a4e; /* Lighter navy for surfaces */
+            --text-color: #e0e0e0;
+            --light-text-color: #a0a0a0;
+            --border-color-glass: rgba(255, 255, 255, 0.1);
+            --border-radius: 16px;
+        }
+
+        /* ======== General Resets & Body ======== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        a:hover {
+            color: var(--primary-hover);
+        }
+
+        /* ======== Header ======== */
+        .header {
+            background: rgba(26, 26, 46, 0.7); /* Semi-transparent */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color-glass);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: 700; color: #fff; }
+        .logo img { height: 40px; margin-right: 10px; }
+        .nav-menu a { color: var(--text-color); margin: 0 15px; font-weight: 400; position: relative; padding-bottom: 5px; }
+        .nav-menu a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--primary-color); transition: width 0.3s ease; }
+        .nav-menu a:hover::after, .nav-menu a.active::after { width: 100%; }
+        .nav-menu a.active { color: var(--primary-color); }
+
+
+        /* ======== Hero Section ======== */
+        .hero {
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: animated-gradient 15s ease infinite;
+            position: relative;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #fff;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* ======== Section Styling ======== */
+        .section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            position: relative;
+            color: #fff;
+        }
+
+        /* ======== Tool Grid & Glassmorphism Cards ======== */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+        }
+        .tool-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color-glass);
+            color: var(--text-color);
+            border-radius: var(--border-radius);
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px rgba(0, 245, 200, 0.3);
+            border-color: rgba(0, 245, 200, 0.5);
+        }
+        .tool-card i {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(0, 245, 200, 0.5);
+        }
+        .tool-card h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        /* ======== Reveal on Scroll Animation ======== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Blog Section (re-styled for dark theme) */
+        .blog-grid, .blog-card, .btn {
+            /* Inherit reveal animation */
+        }
+        .blog-card {
+            background: var(--surface-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        .blog-card-content { padding: 25px; }
+        .blog-card-content h3 { color: #fff; }
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--background-color) !important;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: scale(1.05);
+        }
+
+        /* ======== Footer ======== */
+        .footer {
+            background-color: var(--surface-color);
+            border-top: 1px solid var(--border-color-glass);
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        .footer-column h4 { color: var(--primary-color); }
+        .footer-column ul li a { color: var(--light-text-color); }
+        .footer-column ul li a:hover { color: var(--primary-color); padding-left: 5px; }
+        .copyright { text-align: center; border-top: 1px solid var(--border-color-glass); padding-top: 20px; margin-top: 20px; color: var(--light-text-color); }
+        
+        /* ======== Popup ======== */
+        .popup {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(42, 42, 78, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-color-glass);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            z-index: 1001;
+            max-width: 350px;
+            display: none;
+            animation: slideInUp 0.5s ease-out;
+        }
+        .popup p { margin: 0 0 15px; font-size: 0.95rem; }
+        .popup-icons { display: flex; gap: 20px; justify-content: center; }
+        .popup-icons a { font-size: 1.8rem; transition: transform 0.3s ease; }
+        .popup-icons a:hover { transform: scale(1.2) rotate(10deg); }
+        .popup-icons .fa-whatsapp { color: #25D366; }
+        .popup-icons .fa-envelope { color: #fff; }
+        .popup-close { position: absolute; top: 5px; right: 10px; background: none; border: none; font-size: 1.5rem; color: var(--light-text-color); cursor: pointer; }
+
+        /* ======== Keyframe Animations ======== */
+        @keyframes animated-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes slideInUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* ======== Responsive Design ======== */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .header .container { flex-direction: column; gap: 15px; }
+        }
+        @media (max-width: 480px) {
+            .tool-grid { grid-template-columns: 1fr 1fr; }
+            .footer-links { grid-template-columns: 1fr; }
+        }
+
+    </style>
 </head>
 <body>
 
@@ -35,57 +270,59 @@
 
     <main>
         <section class="hero">
-            <h1>Supercharge Your Productivity</h1>
-            <p>Your ultimate destination for a suite of 20 powerful and easy-to-use online tools, designed to simplify your tasks and boost your skills.</p>
+            <div class="hero-content">
+                <h1>Supercharge Your Productivity</h1>
+                <p>Your ultimate destination for a suite of 20 powerful and easy-to-use online tools, designed to simplify your tasks and boost your skills.</p>
+            </div>
         </section>
 
         <section class="section">
             <div class="container">
-                <h2 class="section-title">Our Free Tools</h2>
+                <h2 class="section-title reveal">Our Free Tools</h2>
                 <div class="tool-grid">
-                    <a href="/tools/bmi-calculator.html" class="tool-card"><i class="fas fa-calculator"></i><h3>BMI Calculator</h3></a>
-                    <a href="/tools/typing-test.html" class="tool-card"><i class="fas fa-keyboard"></i><h3>Typing Test</h3></a>
-                    <a href="/tools/age-calculator.html" class="tool-card"><i class="fas fa-calendar-days"></i><h3>Age Calculator</h3></a>
-                    <a href="/tools/unit-converter.html" class="tool-card"><i class="fas fa-ruler-combined"></i><h3>Unit Converter</h3></a>
-                    <a href="/tools/resume-builder.html" class="tool-card"><i class="fas fa-file-alt"></i><h3>Resume Builder</h3></a>
-                    <a href="/tools/word-counter.html" class="tool-card"><i class="fas fa-file-word"></i><h3>Word Counter</h3></a>
-                    <a href="/tools/password-generator.html" class="tool-card"><i class="fas fa-key"></i><h3>Password Generator</h3></a>
-                    <a href="/tools/qr-code-generator.html" class="tool-card"><i class="fas fa-qrcode"></i><h3>QR Code Generator</h3></a>
-                    <a href="/tools/stopwatch.html" class="tool-card"><i class="fas fa-stopwatch"></i><h3>Stopwatch</h3></a>
-                    <a href="/tools/countdown-timer.html" class="tool-card"><i class="fas fa-hourglass-half"></i><h3>Countdown Timer</h3></a>
-                    <a href="/tools/emi-calculator.html" class="tool-card"><i class="fas fa-percent"></i><h3>EMI Calculator</h3></a>
-                    <a href="/tools/case-converter.html" class="tool-card"><i class="fas fa-font-case"></i><h3>Case Converter</h3></a>
-                    <a href="/tools/markdown-to-html.html" class="tool-card"><i class="fab fa-markdown"></i><h3>Markdown to HTML</h3></a>
-                    <a href="/tools/online-notepad.html" class="tool-card"><i class="fas fa-sticky-note"></i><h3>Online Notepad</h3></a>
-                    <a href="/tools/color-picker.html" class="tool-card"><i class="fas fa-palette"></i><h3>Color Picker</h3></a>
-                    <a href="/tools/random-number-generator.html" class="tool-card"><i class="fas fa-random"></i><h3>Random Number Generator</h3></a>
-                    <a href="/tools/palindrome-checker.html" class="tool-card"><i class="fas fa-arrows-left-right"></i><h3>Palindrome Checker</h3></a>
-                    <a href="/tools/number-to-words.html" class="tool-card"><i class="fas fa-spell-check"></i><h3>Number to Words</h3></a>
-                    <a href="/tools/quiz-app.html" class="tool-card"><i class="fas fa-question-circle"></i><h3>Quiz App</h3></a>
-                    <a href="/tools/ip-finder.html" class="tool-card"><i class="fas fa-location-dot"></i><h3>IP Finder</h3></a>
+                    <a href="/tools/bmi-calculator.html" class="tool-card reveal"><i class="fas fa-calculator"></i><h3>BMI Calculator</h3></a>
+                    <a href="/tools/typing-test.html" class="tool-card reveal"><i class="fas fa-keyboard"></i><h3>Typing Test</h3></a>
+                    <a href="/tools/age-calculator.html" class="tool-card reveal"><i class="fas fa-calendar-days"></i><h3>Age Calculator</h3></a>
+                    <a href="/tools/unit-converter.html" class="tool-card reveal"><i class="fas fa-ruler-combined"></i><h3>Unit Converter</h3></a>
+                    <a href="/tools/resume-builder.html" class="tool-card reveal"><i class="fas fa-file-alt"></i><h3>Resume Builder</h3></a>
+                    <a href="/tools/word-counter.html" class="tool-card reveal"><i class="fas fa-file-word"></i><h3>Word Counter</h3></a>
+                    <a href="/tools/password-generator.html" class="tool-card reveal"><i class="fas fa-key"></i><h3>Password Generator</h3></a>
+                    <a href="/tools/qr-code-generator.html" class="tool-card reveal"><i class="fas fa-qrcode"></i><h3>QR Code Generator</h3></a>
+                    <a href="/tools/stopwatch.html" class="tool-card reveal"><i class="fas fa-stopwatch"></i><h3>Stopwatch</h3></a>
+                    <a href="/tools/countdown-timer.html" class="tool-card reveal"><i class="fas fa-hourglass-half"></i><h3>Countdown Timer</h3></a>
+                    <a href="/tools/emi-calculator.html" class="tool-card reveal"><i class="fas fa-percent"></i><h3>EMI Calculator</h3></a>
+                    <a href="/tools/case-converter.html" class="tool-card reveal"><i class="fas fa-font-case"></i><h3>Case Converter</h3></a>
+                    <a href="/tools/markdown-to-html.html" class="tool-card reveal"><i class="fab fa-markdown"></i><h3>Markdown to HTML</h3></a>
+                    <a href="/tools/online-notepad.html" class="tool-card reveal"><i class="fas fa-sticky-note"></i><h3>Online Notepad</h3></a>
+                    <a href="/tools/color-picker.html" class="tool-card reveal"><i class="fas fa-palette"></i><h3>Color Picker</h3></a>
+                    <a href="/tools/random-number-generator.html" class="tool-card reveal"><i class="fas fa-random"></i><h3>Random Number Generator</h3></a>
+                    <a href="/tools/palindrome-checker.html" class="tool-card reveal"><i class="fas fa-arrows-left-right"></i><h3>Palindrome Checker</h3></a>
+                    <a href="/tools/number-to-words.html" class="tool-card reveal"><i class="fas fa-spell-check"></i><h3>Number to Words</h3></a>
+                    <a href="/tools/quiz-app.html" class="tool-card reveal"><i class="fas fa-question-circle"></i><h3>Quiz App</h3></a>
+                    <a href="/tools/ip-finder.html" class="tool-card reveal"><i class="fas fa-location-dot"></i><h3>IP Finder</h3></a>
                 </div>
             </div>
         </section>
 
-        <section class="section" style="background-color: var(--surface-color);">
-            <div class="container">
-                <h2 class="section-title">From Our Blog</h2>
+        <section class="section" style="background-color: #1E1E1E;">
+             <div class="container">
+                <h2 class="section-title reveal">From Our Blog</h2>
                 <div class="blog-grid">
-                    <div class="blog-card">
+                    <div class="blog-card reveal">
                         <div class="blog-card-content">
                             <h3>5 Essential Tips for Using Online Tools Effectively</h3>
                             <p>Unlock your true potential by learning how to integrate free online tools into your daily workflow...</p>
                             <a href="/blog/tool-usage-tips.html" class="btn">Read More</a>
                         </div>
                     </div>
-                     <div class="blog-card">
+                     <div class="blog-card reveal">
                         <div class="blog-card-content">
                             <h3>10 Productivity Hacks for Students and Professionals</h3>
                             <p>Discover simple yet powerful productivity hacks that can save you time and effort every single day...</p>
                             <a href="/blog/productivity-hacks.html" class="btn">Read More</a>
                         </div>
                     </div>
-                     <div class="blog-card">
+                     <div class="blog-card reveal">
                         <div class="blog-card-content">
                             <h3>Why a Strong Password Matters More Than Ever</h3>
                             <p>In an age of data breaches, learn why using a secure password generator is crucial for your digital safety...</p>
@@ -156,6 +393,59 @@
         <button class="popup-close" id="popup-close-btn">&times;</button>
     </div>
     
-    <script src="/js/scripts.js"></script>
+    <script>
+        /* ======== Naya "Animated" JavaScript Code ======== */
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // ======== Popup Logic ========
+            const contactPopup = document.getElementById('contact-popup');
+            const closePopupBtn = document.getElementById('popup-close-btn');
+
+            if (contactPopup && !sessionStorage.getItem('popupClosed')) {
+                setTimeout(() => {
+                    contactPopup.style.display = 'block';
+                }, 4000); // Show after 4 seconds
+            }
+
+            if (closePopupBtn) {
+                closePopupBtn.addEventListener('click', () => {
+                    contactPopup.style.display = 'none';
+                    sessionStorage.setItem('popupClosed', 'true');
+                });
+            }
+            
+            // ======== Active Nav Link Highlight ========
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            const currentPageUrl = window.location.pathname;
+
+            navLinks.forEach(link => {
+                const linkUrl = new URL(link.href).pathname;
+                if (currentPageUrl === linkUrl || (currentPageUrl.endsWith('/index.html') && linkUrl === '/')) {
+                    link.classList.add('active');
+                }
+            });
+
+            // ======== Reveal on Scroll Animation Logic ========
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optional: unobserve after revealing to save resources
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            revealElements.forEach(element => {
+                observer.observe(element);
+            });
+
+        });
+    </script>
 </body>
 </html>
