@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boost My Skills - Advanced Online Tools</title>
-    <meta name="description" content="An advanced suite of 20+ free, animated, and interactive online tools to supercharge your productivity and skills.">
+    <title>Age Calculator - Advanced Age Calculation Tool</title>
+    <meta name="description" content="The most detailed age calculator online. Instantly calculate your exact age in years, months, weeks, days, hours, minutes, and even seconds with an interactive interface.">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
 
     <style>
         :root {
-            /* Dark Theme (Default) */
             --primary-color: #00f5c8; --primary-hover: #00d1ac; --background-color: #0a0a14;
             --surface-color: #141428; --text-color: #e0e0e0; --light-text-color: #a0a0a0;
             --border-color-glass: rgba(0, 245, 200, 0.2); --shadow-color: rgba(0, 245, 200, 0.4);
-            --glitch-color-1: #ff00c1; --glitch-color-2: #00f5c8;
             --transition-speed: 0.4s; --border-radius: 16px;
         }
-        body[data-theme="light"] { /* Light theme styles can be added here if needed */ }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Poppins', sans-serif; background-color: var(--background-color);
             color: var(--text-color); line-height: 1.7; overflow-x: hidden;
         }
-        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.3; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.2; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
         a { text-decoration: none; color: var(--primary-color); font-weight: 600; }
 
         .header {
@@ -36,52 +34,56 @@
             border-bottom: 1px solid var(--border-color-glass); padding: 1rem 0;
             position: sticky; top: 0; z-index: 1000;
         }
-        .header .container { display: flex; justify-content: space-between; align-items: center; }
+        .header .container { max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
         .logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
         .nav-menu { display: flex; align-items: center; gap: 20px; }
+        .nav-menu a { color: var(--text-color); font-weight: 400; }
         
-        .hero { padding: 100px 0; text-align: center; }
-        .glitch-effect {
-            font-family: 'Roboto Mono', monospace; font-size: 3.5rem; font-weight: 700; color: #fff;
-            text-shadow: 0 0 5px var(--primary-color); position: relative;
-        }
-        .glitch-effect::before, .glitch-effect::after {
-            content: attr(data-text); position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; background: var(--background-color); overflow: hidden;
-        }
-        .glitch-effect::before { left: 2px; text-shadow: -2px 0 var(--glitch-color-1); animation: glitch-anim-1 2s infinite linear reverse; }
-        .glitch-effect::after { left: -2px; text-shadow: -2px 0 var(--glitch-color-2); animation: glitch-anim-2 2s infinite linear reverse; }
-
-        .hero p { font-size: 1.2rem; margin-top: 20px; color: var(--light-text-color); animation: fadeIn 2s 1s ease-out forwards; opacity: 0; }
-
-        .section { padding: 80px 0; }
-        .section-title { text-align: center; font-size: 2.8rem; margin-bottom: 60px; color: var(--text-color); }
-
-        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 30px; }
-        .card-wrapper { perspective: 1000px; }
-        .tool-card {
-            background: linear-gradient(135deg, var(--surface-color), #202038);
+        .tool-container-wrapper { perspective: 1500px; }
+        .tool-container {
+            background: linear-gradient(145deg, var(--surface-color), #101020);
             border: 1px solid var(--border-color-glass);
-            color: var(--text-color); border-radius: var(--border-radius);
-            padding: 30px; text-align: center;
-            transition: all 0.2s ease-out;
-            will-change: transform;
+            border-radius: var(--border-radius); padding: 40px; margin: 40px auto;
+            transition: all 0.2s ease-out; will-change: transform;
         }
-        .tool-card:hover { box-shadow: 0 0 30px var(--shadow-color); border-color: var(--primary-color); }
-        .tool-card i { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
-        .tool-card h3 { font-size: 1.2rem; color: var(--text-color); }
+        .tool-header { text-align: center; margin-bottom: 30px; }
+        .tool-header i { font-size: 4rem; color: var(--primary-color); text-shadow: 0 0 25px var(--shadow-color); }
+        .tool-header h1 { font-size: 2.8rem; margin-top: 15px; color: #fff; }
 
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--light-text-color); }
+        .form-group input {
+            width: 100%; padding: 16px; background-color: var(--background-color);
+            border: 1px solid var(--border-color-glass); border-radius: 8px;
+            color: var(--text-color); font-size: 1.2rem;
+            transition: all var(--transition-speed) ease;
+        }
+        .form-group input:focus { border-color: var(--primary-color); box-shadow: 0 0 20px var(--shadow-color); outline: none; }
+        
+        /* Advanced Ripple Button */
         .btn-ripple {
-            padding: 16px 32px; font-size: 1.2rem; font-weight: 700;
-            border: 2px solid var(--primary-color); background: transparent;
+            display: block; width: 100%; padding: 18px; font-size: 1.3rem; font-weight: 700;
+            border: 1px solid var(--primary-color); background: transparent;
             color: var(--primary-color); border-radius: 8px; cursor: pointer;
             position: relative; overflow: hidden; transition: all var(--transition-speed);
         }
-        .btn-ripple:hover { background: var(--primary-color); color: var(--background-color); box-shadow: 0 0 20px var(--shadow-color); }
+        .btn-ripple:hover { background: var(--primary-color); color: var(--background-color); box-shadow: 0 0 25px var(--shadow-color); }
         .ripple {
-            position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.6);
+            position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.7);
             transform: scale(0); animation: ripple-anim 0.6s linear;
         }
+        
+        .tool-result { margin-top: 30px; padding: 25px; background-color: var(--background-color); border-left: 4px solid var(--primary-color); border-radius: 8px; animation: fadeIn 0.5s ease-out; }
+        .result-main { font-size: 1.5rem; font-weight: 600; text-align: center; margin-bottom: 20px; }
+        .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .result-item { background: var(--surface-color); padding: 15px; border-radius: 8px; text-align: center; }
+        .result-item-label { font-size: 0.9rem; color: var(--light-text-color); }
+        .result-item-value { font-size: 1.3rem; font-weight: 600; color: var(--primary-color);}
+        
+        .tool-content-section { margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--border-color-glass); }
+        .tool-content-section h2 { font-size: 1.8rem; margin-bottom: 15px; color: var(--primary-color); }
+        .tool-content-section p, .tool-content-section li { color: var(--light-text-color); line-height: 1.8; margin-bottom: 15px;}
+        .tool-content-section ol { padding-left: 25px; }
 
         .footer {
             background-color: var(--surface-color); border-top: 1px solid var(--border-color-glass);
@@ -93,15 +95,20 @@
         .footer-column ul li a { color: var(--light-text-color); font-weight: 400; }
         .copyright { text-align: center; border-top: 1px solid var(--border-color-glass); padding-top: 20px; margin-top: 20px; color: var(--light-text-color); }
         
-        @keyframes glitch-anim-1 { 0%, 100% { clip-path: inset(50% 0 30% 0); } 20% { clip-path: inset(20% 0 70% 0); } 40% { clip-path: inset(80% 0 10% 0); } 60% { clip-path: inset(10% 0 80% 0); } 80% { clip-path: inset(40% 0 45% 0); } }
-        @keyframes glitch-anim-2 { 0%, 100% { clip-path: inset(70% 0 10% 0); } 20% { clip-path: inset(40% 0 45% 0); } 40% { clip-path: inset(10% 0 80% 0); } 60% { clip-path: inset(50% 0 30% 0); } 80% { clip-path: inset(20% 0 70% 0); } }
-        @keyframes fadeIn { to { opacity: 1; } }
         @keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 992px) { .footer-links { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 768px) { .footer-links { grid-template-columns: repeat(2, 1fr); } .glitch-effect { font-size: 2.5rem; } }
-        @media (max-width: 480px) { .header .container { flex-direction: column; gap: 15px; } .footer-links { grid-template-columns: 1fr; } }
-
+        @media (max-width: 768px) {
+            .tool-container { padding: 25px; } .tool-header h1 { font-size: 2rem; }
+            .result-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-links { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .header .container { flex-direction: column; gap: 15px; }
+            .footer-links { grid-template-columns: 1fr; }
+            .result-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -111,31 +118,61 @@
         <div class="container">
             <a href="/index.html" class="logo"><img src="/assets/images/logo.png" alt="Logo"><span>Boost My Skills</span></a>
             <nav class="nav-menu">
-                <a href="/index.html" class="active">Home</a><a href="/about.html">About</a>
-                <a href="/contact.html">Contact</a><a href="/blog/tool-usage-tips.html">Blog</a>
+                <a href="/index.html">Home</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/blog/tool-usage-tips.html">Blog</a>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <section class="hero">
-            <h1 class="glitch-effect" data-text="Supercharge Your Productivity">Supercharge Your Productivity</h1>
-            <p>The ultimate destination for an advanced suite of interactive online tools.</p>
-        </section>
-
-        <section class="section">
-            <h2 class="section-title">Our Tools</h2>
-            <div class="tool-grid">
-                <div class="card-wrapper"><a href="/tools/bmi-calculator.html" class="tool-card"><i class="fas fa-calculator"></i><h3>BMI Calculator</h3></a></div>
-                <div class="card-wrapper"><a href="/tools/typing-test.html" class="tool-card"><i class="fas fa-keyboard"></i><h3>Typing Test</h3></a></div>
-                <div class="card-wrapper"><a href="/tools/age-calculator.html" class="tool-card"><i class="fas fa-calendar-days"></i><h3>Age Calculator</h3></a></div>
-                <div class="card-wrapper"><a href="/tools/unit-converter.html" class="tool-card"><i class="fas fa-ruler-combined"></i><h3>Unit Converter</h3></a></div>
+        <div class="tool-container-wrapper">
+            <div class="tool-container">
+                <div class="tool-header">
+                    <i class="fas fa-calendar-days"></i>
+                    <h1>Age Calculator</h1>
                 </div>
-        </section>
+                
+                <div class="form-group">
+                    <label for="birth-date">Enter your Date of Birth:</label>
+                    <input type="date" id="birth-date" required>
+                </div>
+                
+                <button id="calculate-btn" class="btn-ripple">Calculate Age</button>
+
+                <div id="result" class="tool-result" style="display: none;">
+                    <p class="result-main" id="age-main-output"></p>
+                    <div class="result-grid">
+                        <div class="result-item"><span class="result-item-label">Total Months</span><p class="result-item-value" id="months-output"></p></div>
+                        <div class="result-item"><span class="result-item-label">Total Weeks</span><p class="result-item-value" id="weeks-output"></p></div>
+                        <div class="result-item"><span class="result-item-label">Total Days</span><p class="result-item-value" id="days-output"></p></div>
+                        <div class="result-item"><span class="result-item-label">Total Hours</span><p class="result-item-value" id="hours-output"></p></div>
+                        <div class="result-item"><span class="result-item-label">Total Minutes</span><p class="result-item-value" id="minutes-output"></p></div>
+                        <div class="result-item"><span class="result-item-label">Total Seconds</span><p class="result-item-value" id="seconds-output"></p></div>
+                    </div>
+                </div>
+
+                <div class="tool-content-section">
+                    <h2>How to Use This Tool</h2>
+                    <ol>
+                        <li><strong>Enter Date of Birth:</strong> Click the input field and select your birth date from the calendar.</li>
+                        <li><strong>Calculate:</strong> Press the "Calculate Age" button.</li>
+                        <li><strong>View Your Detailed Age:</strong> Your age will be shown in a detailed summary, including everything from years down to the very seconds you've lived.</li>
+                    </ol>
+                </div>
+
+                <div class="tool-content-section">
+                    <h2>About The Age Calculator</h2>
+                    <p>How old are you? It’s a simple question with a surprisingly complex answer. While you might know your age in years, calculating your exact age down to the very day and month can be a tricky mental exercise. This is where our Age Calculator comes in—a sophisticated yet user-friendly tool designed to provide you with a precise and detailed answer in an instant. More than just a number, your age is a measure of your journey through time, and our calculator is here to map it out for you with unparalleled accuracy. It eliminates the hassle of manual calculations involving varying month lengths and the dreaded leap years, giving you a clear and reliable result every single time.</p>
+                    <p>The primary function of this tool is to determine the time elapsed between your date of birth and the current date. When you input your birth date, our calculator’s algorithm performs a series of subtractions. It starts with the current day, month, and year and subtracts your birth day, month, and year. The complexity arises when the current day or month is less than the birth day or month. In such cases, the algorithm intelligently "borrows" days from the preceding month or months from the preceding year, automatically adjusting for the correct number of days in that specific month (be it 28, 29, 30, or 31). This ensures that the final calculation of years, months, and days is not just an estimate but a chronologically accurate reflection of your age. The tool also provides a summary of your total days lived, offering a fascinating perspective on your life's duration.</p>
+                    <h3>Practical Applications in Daily Life</h3>
+                    <p>The utility of an Age Calculator extends far beyond satisfying personal curiosity. It has a multitude of practical applications that are crucial in various aspects of our lives. In administrative and official matters, precise age is often a prerequisite. When filling out applications for jobs, passports, insurance policies, or financial products, an exact age calculation can prevent errors that might lead to delays or rejections. For instance, determining eligibility for retirement benefits or pension schemes requires knowing one's age down to the day. Similarly, in the medical field, a patient's exact age is vital for calculating medication dosages, assessing developmental milestones in children, and understanding age-related health risks.</p>
+                    <p>Furthermore, this tool is invaluable for personal and financial planning. Are you planning your retirement? Knowing your precise age helps in setting a more accurate timeline for your financial goals. Are you a student applying for age-restricted scholarships or competitions? Our calculator ensures you meet the eligibility criteria without any doubt. Even in social contexts, it can be a fun tool to celebrate unique milestones, such as your 10,000th day alive or the exact halfway point to your next birthday. This shifts the perception of age from a simple annual number to a continuous, dynamic measure of life.</p>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
-        <div class="container">
+        <div class="container" style="max-width: 1200px;">
             <div class="footer-links">
                 <div class="footer-column"><h4>Calculators</h4><ul><li><a href="/tools/bmi-calculator.html">BMI Calculator</a></li><li><a href="/tools/age-calculator.html">Age Calculator</a></li><li><a href="/tools/emi-calculator.html">EMI Calculator</a></li></ul></div>
                 <div class="footer-column"><h4>Text Tools</h4><ul><li><a href="/tools/typing-test.html">Typing Test</a></li><li><a href="/tools/word-counter.html">Word Counter</a></li><li><a href="/tools/case-converter.html">Case Converter</a></li></ul></div>
@@ -154,14 +191,10 @@
             const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const nums = '0123456789';
-            const alphabet = katakana + latin + nums;
+            const alphabet = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             const fontSize = 16;
             const columns = canvas.width / fontSize;
-            const rainDrops = [];
-            for (let x = 0; x < columns; x++) { rainDrops[x] = 1; }
+            const rainDrops = Array.from({ length: columns }).map(() => 1);
 
             const drawMatrix = () => {
                 ctx.fillStyle = 'rgba(10, 10, 20, 0.05)';
@@ -171,36 +204,34 @@
                 for (let i = 0; i < rainDrops.length; i++) {
                     const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
                     ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-                    if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        rainDrops[i] = 0;
-                    }
+                    if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) { rainDrops[i] = 0; }
                     rainDrops[i]++;
                 }
             };
-            setInterval(drawMatrix, 30);
+            const matrixInterval = setInterval(drawMatrix, 35);
 
-            // 3D Tilt Effect for Cards
-            const cards = document.querySelectorAll('.tool-card');
-            cards.forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
+            // 3D Tilt Effect
+            const container = document.querySelector('.tool-container');
+            if(container) {
+                container.addEventListener('mousemove', (e) => {
+                    const rect = container.getBoundingClientRect();
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    const rotateX = -y / 20;
-                    const rotateY = x / 20;
-                    card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                    const rotateX = -y / 30;
+                    const rotateY = x / 30;
+                    container.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
                 });
-                card.addEventListener('mouseleave', () => {
-                    card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+                container.addEventListener('mouseleave', () => {
+                    container.style.transform = 'rotateX(0) rotateY(0) scale(1)';
                 });
-            });
+            }
 
-            // Ripple Button Effect
+            // Ripple Button
             const buttons = document.querySelectorAll('.btn-ripple');
             buttons.forEach(button => {
                 button.addEventListener('click', function (e) {
-                    const x = e.clientX - e.target.offsetLeft;
-                    const y = e.clientY - e.target.offsetTop;
+                    const x = e.clientX - e.target.getBoundingClientRect().left;
+                    const y = e.clientY - e.target.getBoundingClientRect().top;
                     const ripples = document.createElement('span');
                     ripples.classList.add('ripple');
                     ripples.style.left = x + 'px';
@@ -209,6 +240,40 @@
                     setTimeout(() => { ripples.remove(); }, 600);
                 });
             });
+
+            // Tool-specific script for Age Calculator
+            const calculateBtn = document.getElementById('calculate-btn');
+            if(calculateBtn) {
+                calculateBtn.addEventListener('click', () => {
+                    const birthDateInput = document.getElementById('birth-date');
+                    const resultDiv = document.getElementById('result');
+                    const birthDateString = birthDateInput.value;
+                    if (!birthDateString) { alert('Please enter your date of birth.'); return; }
+                    const birthDate = new Date(birthDateString);
+                    const today = new Date();
+                    if (birthDate > today) { alert('Date of birth cannot be in the future.'); return; }
+
+                    let years = today.getFullYear() - birthDate.getFullYear();
+                    let months = today.getMonth() - birthDate.getMonth();
+                    let days = today.getDate() - birthDate.getDate();
+                    if (months < 0 || (months === 0 && days < 0)) { years--; months += 12; }
+                    if (days < 0) {
+                        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                        days += prevMonth.getDate(); months--;
+                    }
+                    document.getElementById('age-main-output').innerHTML = `${years} <small>Years</small>, ${months} <small>Months</small>, ${days} <small>Days</small>`;
+                    
+                    const diff = today.getTime() - birthDate.getTime();
+                    document.getElementById('months-output').textContent = (years * 12 + months).toLocaleString();
+                    document.getElementById('weeks-output').textContent = Math.floor(diff / (1000 * 60 * 60 * 24 * 7)).toLocaleString();
+                    document.getElementById('days-output').textContent = Math.floor(diff / (1000 * 60 * 60 * 24)).toLocaleString();
+                    document.getElementById('hours-output').textContent = Math.floor(diff / (1000 * 60 * 60)).toLocaleString();
+                    document.getElementById('minutes-output').textContent = Math.floor(diff / (1000 * 60)).toLocaleString();
+                    document.getElementById('seconds-output').textContent = Math.floor(diff / 1000).toLocaleString();
+                    
+                    resultDiv.style.display = 'block';
+                });
+            }
         });
     </script>
 </body>
