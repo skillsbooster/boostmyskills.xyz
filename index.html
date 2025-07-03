@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boost My Skills - 20+ Free Online Tools for Productivity</title>
-    <meta name="description" content="Boost your productivity with a suite of 20+ free, powerful, and easy-to-use online tools. Includes calculators, converters, developer tools, and more.">
+    <meta name="description" content="A suite of 20+ free, modern, and easy-to-use online tools. Includes calculators, converters, developer tools, and more for your daily tasks.">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     
@@ -15,18 +15,32 @@
     <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
 
     <style>
-        /* ======== Naya "Modern & Cool" CSS Code ======== */
+        /* ======== FINAL CSS: Dark/Light Mode, Responsive, Animated ======== */
 
-        /* ======== Root Variables (New Dark Palette) ======== */
+        /* ======== Root Variables ======== */
         :root {
-            --primary-color: #00f5c8; /* A vibrant mint/cyan accent */
+            /* Dark Theme (Default) */
+            --primary-color: #00f5c8; /* Vibrant Mint */
             --primary-hover: #00d1ac;
-            --background-color: #1a1a2e; /* Deep navy blue */
-            --surface-color: #2a2a4e; /* Lighter navy for surfaces */
+            --background-color: #121212; /* Off-black */
+            --surface-color: #1e1e1e; /* Dark Grey Surface */
             --text-color: #e0e0e0;
             --light-text-color: #a0a0a0;
             --border-color-glass: rgba(255, 255, 255, 0.1);
-            --border-radius: 16px;
+            --shadow-color: rgba(0, 245, 200, 0.3);
+            --transition-speed: 0.3s;
+        }
+
+        body[data-theme="light"] {
+            /* Light Theme */
+            --primary-color: #0056b3;
+            --primary-hover: #00418a;
+            --background-color: #f4f7f9;
+            --surface-color: #ffffff;
+            --text-color: #333333;
+            --light-text-color: #6c757d;
+            --border-color-glass: rgba(0, 0, 0, 0.1);
+            --shadow-color: rgba(0, 86, 179, 0.15);
         }
 
         /* ======== General Resets & Body ======== */
@@ -44,164 +58,92 @@
             color: var(--text-color);
             line-height: 1.7;
             overflow-x: hidden;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
         a {
             text-decoration: none;
             color: var(--primary-color);
             font-weight: 600;
         }
-        a:hover {
-            color: var(--primary-hover);
-        }
 
-        /* ======== Header ======== */
+        /* ======== Header & Theme Switcher ======== */
         .header {
-            background: rgba(26, 26, 46, 0.7); /* Semi-transparent */
+            background: rgba(30, 30, 30, 0.7);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color-glass);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: background-color var(--transition-speed) ease;
+        }
+        body[data-theme="light"] .header {
+             background: rgba(255, 255, 255, 0.7);
         }
         .header .container { display: flex; justify-content: space-between; align-items: center; }
-        .logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: 700; color: #fff; }
+        .logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
         .logo img { height: 40px; margin-right: 10px; }
-        .nav-menu a { color: var(--text-color); margin: 0 15px; font-weight: 400; position: relative; padding-bottom: 5px; }
-        .nav-menu a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--primary-color); transition: width 0.3s ease; }
-        .nav-menu a:hover::after, .nav-menu a.active::after { width: 100%; }
-        .nav-menu a.active { color: var(--primary-color); }
+        .nav-menu { display: flex; align-items: center; gap: 15px; }
+        .nav-menu a { color: var(--text-color); font-weight: 400; position: relative; padding-bottom: 5px; }
+        .nav-menu a.active { color: var(--primary-color); font-weight: 600; }
 
+        .theme-switcher { display: flex; align-items: center; }
+        #theme-toggle { display: none; }
+        .slider { cursor: pointer; width: 50px; height: 25px; background-color: #333; border-radius: 25px; position: relative; transition: background-color var(--transition-speed) ease; }
+        .slider::before { content: ''; position: absolute; height: 19px; width: 19px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: transform var(--transition-speed) ease; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.836 17.836a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.06l1.591-1.591zM12 18a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.894 17.836a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 001.06 1.06l1.591-1.591zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.106 6.106a.75.75 0 00-1.06-1.06l-1.59 1.591a.75.75 0 101.06 1.06l1.59-1.591z"/></svg>'); background-size: 13px; background-repeat: no-repeat; background-position: center; }
+        #theme-toggle:checked + .slider { background-color: var(--primary-color); }
+        #theme-toggle:checked + .slider::before { transform: translateX(25px); background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-3.51 1.713-6.625 4.382-8.442a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>');}
 
         /* ======== Hero Section ======== */
         .hero {
-            padding: 100px 20px;
-            text-align: center;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: animated-gradient 15s ease infinite;
-            position: relative;
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-            color: #fff;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: #fff;
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0.9;
-        }
-
-        /* ======== Section Styling ======== */
-        .section {
             padding: 80px 0;
-        }
-        .section-title {
             text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 60px;
-            position: relative;
-            color: #fff;
+            background: linear-gradient(-45deg, #121212, #1a1a2e, #2a2a4e, #1a1a2e);
+            background-size: 400% 400%;
+            animation: animated-gradient 20s ease infinite;
         }
+        body[data-theme="light"] .hero {
+            background: linear-gradient(-45deg, #e0eafc, #cfdef3, #e0eafc, #cfdef3);
+            background-size: 400% 400%;
+        }
+        .hero h1 { font-size: 3rem; color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.1rem; color: #fff; max-width: 600px; margin: 20px auto 0; opacity: 0.9; }
+        body[data-theme="light"] .hero h1, body[data-theme="light"] .hero p { color: var(--text-color); text-shadow: none;}
 
-        /* ======== Tool Grid & Glassmorphism Cards ======== */
-        .tool-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 30px;
-        }
+        /* ======== Sections, Grids, Cards ======== */
+        .section { padding: 60px 0; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 50px; color: var(--text-color); }
+        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; }
         .tool-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            background: var(--surface-color);
             border: 1px solid var(--border-color-glass);
             color: var(--text-color);
             border-radius: var(--border-radius);
-            padding: 30px 20px;
+            padding: 25px;
             text-align: center;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            transition: all var(--transition-speed) ease;
         }
-        .tool-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 20px rgba(0, 245, 200, 0.3);
-            border-color: rgba(0, 245, 200, 0.5);
-        }
-        .tool-card i {
-            font-size: 2.8rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            text-shadow: 0 0 15px rgba(0, 245, 200, 0.5);
-        }
-        .tool-card h3 {
-            font-size: 1.2rem;
-            color: #fff;
-            margin: 0;
-            font-weight: 600;
-        }
+        .tool-card:hover { transform: translateY(-10px); box-shadow: 0 0 25px var(--shadow-color); border-color: var(--primary-color); }
+        .tool-card i { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 15px; }
+        .tool-card h3 { font-size: 1.1rem; color: var(--text-color); font-weight: 600; }
+        .blog-card { background: var(--surface-color); border-radius: var(--border-radius); overflow: hidden; }
+        .blog-card-content { padding: 25px; }
+        .btn { display: inline-block; background-color: var(--primary-color); color: #121212 !important; padding: 10px 25px; border-radius: 50px; font-weight: 700; transition: all var(--transition-speed) ease; }
+        .btn:hover { background-color: var(--primary-hover); transform: scale(1.05); }
 
         /* ======== Reveal on Scroll Animation ======== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Blog Section (re-styled for dark theme) */
-        .blog-grid, .blog-card, .btn {
-            /* Inherit reveal animation */
-        }
-        .blog-card {
-            background: var(--surface-color);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-        }
-        .blog-card-content { padding: 25px; }
-        .blog-card-content h3 { color: #fff; }
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: var(--background-color) !important;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-weight: 700;
-            transition: all 0.3s ease;
-        }
-        .btn:hover {
-            background-color: var(--primary-hover);
-            transform: scale(1.05);
-        }
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
         /* ======== Footer ======== */
-        .footer {
-            background-color: var(--surface-color);
-            border-top: 1px solid var(--border-color-glass);
-            padding: 50px 0 20px;
-            margin-top: 50px;
-        }
+        .footer { background-color: var(--surface-color); border-top: 1px solid var(--border-color-glass); padding: 50px 0 20px; margin-top: 50px; }
         .footer-column h4 { color: var(--primary-color); }
         .footer-column ul li a { color: var(--light-text-color); }
-        .footer-column ul li a:hover { color: var(--primary-color); padding-left: 5px; }
         .copyright { text-align: center; border-top: 1px solid var(--border-color-glass); padding-top: 20px; margin-top: 20px; color: var(--light-text-color); }
         
         /* ======== Popup ======== */
@@ -209,8 +151,7 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: rgba(42, 42, 78, 0.8);
-            backdrop-filter: blur(10px);
+            background: var(--surface-color);
             border: 1px solid var(--border-color-glass);
             padding: 20px;
             border-radius: var(--border-radius);
@@ -222,33 +163,38 @@
         }
         .popup p { margin: 0 0 15px; font-size: 0.95rem; }
         .popup-icons { display: flex; gap: 20px; justify-content: center; }
-        .popup-icons a { font-size: 1.8rem; transition: transform 0.3s ease; }
-        .popup-icons a:hover { transform: scale(1.2) rotate(10deg); }
+        .popup-icons a { font-size: 1.8rem; transition: transform var(--transition-speed) ease; }
+        .popup-icons a:hover { transform: scale(1.2); }
         .popup-icons .fa-whatsapp { color: #25D366; }
         .popup-icons .fa-envelope { color: #fff; }
+        body[data-theme="light"] .popup-icons .fa-envelope { color: #EA4335; }
         .popup-close { position: absolute; top: 5px; right: 10px; background: none; border: none; font-size: 1.5rem; color: var(--light-text-color); cursor: pointer; }
 
-        /* ======== Keyframe Animations ======== */
-        @keyframes animated-gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        @keyframes slideInUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+        /* ======== Animations ======== */
+        @keyframes animated-gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes slideInUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        /* ======== Responsive Design ======== */
+        /* ======== MOBILE RESPONSIVE STYLES ======== */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .header .container { flex-direction: column; gap: 15px; }
+            .hero h1 { font-size: 2.2rem; }
+            .section-title { font-size: 2rem; }
+            .header .container { flex-direction: row; } /* Keep horizontal on tablet */
+            .nav-menu { gap: 10px; }
+            .nav-menu a { margin: 0; font-size: 0.9rem; }
+            .tool-grid { grid-template-columns: repeat(3, 1fr); gap: 15px; }
+            .tool-card { padding: 20px; }
+            .tool-card i { font-size: 2rem; }
+            .tool-card h3 { font-size: 0.9rem; }
         }
         @media (max-width: 480px) {
+            .header { padding: 0.8rem 0; }
+            .header .container { flex-direction: column; gap: 15px; }
             .tool-grid { grid-template-columns: 1fr 1fr; }
-            .footer-links { grid-template-columns: 1fr; }
+            .hero { padding: 60px 20px; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
+            .section { padding: 40px 0; }
         }
-
     </style>
 </head>
 <body>
@@ -264,6 +210,10 @@
                 <a href="/about.html">About</a>
                 <a href="/contact.html">Contact</a>
                 <a href="/blog/tool-usage-tips.html">Blog</a>
+                <div class="theme-switcher">
+                    <input type="checkbox" id="theme-toggle">
+                    <label for="theme-toggle" class="slider"></label>
+                </div>
             </nav>
         </div>
     </header>
@@ -304,7 +254,7 @@
             </div>
         </section>
 
-        <section class="section" style="background-color: #1E1E1E;">
+        <section class="section" style="background-color: var(--surface-color); transition: background-color var(--transition-speed) ease;">
              <div class="container">
                 <h2 class="section-title reveal">From Our Blog</h2>
                 <div class="blog-grid">
@@ -337,50 +287,12 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-links">
-                <div class="footer-column">
-                    <h4>Calculators & Converters</h4>
-                    <ul>
-                        <li><a href="/tools/bmi-calculator.html">BMI Calculator</a></li>
-                        <li><a href="/tools/age-calculator.html">Age Calculator</a></li>
-                        <li><a href="/tools/unit-converter.html">Unit Converter</a></li>
-                        <li><a href="/tools/emi-calculator.html">EMI Calculator</a></li>
-                        <li><a href="/tools/number-to-words.html">Number to Words</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Text & Content Tools</h4>
-                    <ul>
-                        <li><a href="/tools/typing-test.html">Typing Test</a></li>
-                        <li><a href="/tools/resume-builder.html">Resume Builder</a></li>
-                        <li><a href="/tools/word-counter.html">Word Counter</a></li>
-                        <li><a href="/tools/case-converter.html">Case Converter</a></li>
-                        <li><a href="/tools/online-notepad.html">Online Notepad</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Developer Tools</h4>
-                    <ul>
-                        <li><a href="/tools/password-generator.html">Password Generator</a></li>
-                        <li><a href="/tools/qr-code-generator.html">QR Code Generator</a></li>
-                        <li><a href="/tools/markdown-to-html.html">Markdown to HTML</a></li>
-                        <li><a href="/tools/color-picker.html">Color Picker</a></li>
-                        <li><a href="/tools/ip-finder.html">IP Finder</a></li>
-                    </ul>
-                </div>
-                 <div class="footer-column">
-                    <h4>Other Utilities</h4>
-                    <ul>
-                        <li><a href="/tools/stopwatch.html">Stopwatch</a></li>
-                        <li><a href="/tools/countdown-timer.html">Countdown Timer</a></li>
-                        <li><a href="/tools/random-number-generator.html">Random Number Generator</a></li>
-                        <li><a href="/tools/palindrome-checker.html">Palindrome Checker</a></li>
-                        <li><a href="/tools/quiz-app.html">Quiz App</a></li>
-                    </ul>
-                </div>
+                <div class="footer-column"><h4>Calculators & Converters</h4><ul><li><a href="/tools/bmi-calculator.html">BMI Calculator</a></li><li><a href="/tools/age-calculator.html">Age Calculator</a></li><li><a href="/tools/unit-converter.html">Unit Converter</a></li><li><a href="/tools/emi-calculator.html">EMI Calculator</a></li><li><a href="/tools/number-to-words.html">Number to Words</a></li></ul></div>
+                <div class="footer-column"><h4>Text & Content Tools</h4><ul><li><a href="/tools/typing-test.html">Typing Test</a></li><li><a href="/tools/resume-builder.html">Resume Builder</a></li><li><a href="/tools/word-counter.html">Word Counter</a></li><li><a href="/tools/case-converter.html">Case Converter</a></li><li><a href="/tools/online-notepad.html">Online Notepad</a></li></ul></div>
+                <div class="footer-column"><h4>Developer Tools</h4><ul><li><a href="/tools/password-generator.html">Password Generator</a></li><li><a href="/tools/qr-code-generator.html">QR Code Generator</a></li><li><a href="/tools/markdown-to-html.html">Markdown to HTML</a></li><li><a href="/tools/color-picker.html">Color Picker</a></li><li><a href="/tools/ip-finder.html">IP Finder</a></li></ul></div>
+                <div class="footer-column"><h4>Other Utilities</h4><ul><li><a href="/tools/stopwatch.html">Stopwatch</a></li><li><a href="/tools/countdown-timer.html">Countdown Timer</a></li><li><a href="/tools/random-number-generator.html">Random Number Generator</a></li><li><a href="/tools/palindrome-checker.html">Palindrome Checker</a></li><li><a href="/tools/quiz-app.html">Quiz App</a></li></ul></div>
             </div>
-            <div class="copyright">
-                &copy; 2025–2026 Boost My Skills. All rights reserved.
-            </div>
+            <div class="copyright">&copy; 2025–2026 Boost My Skills. All rights reserved.</div>
         </div>
     </footer>
 
@@ -394,9 +306,39 @@
     </div>
     
     <script>
-        /* ======== Naya "Animated" JavaScript Code ======== */
+        /* ======== FINAL JAVASCRIPT: Theme Switcher, Animations, Popup ======== */
 
         document.addEventListener('DOMContentLoaded', () => {
+
+            // ======== Theme Switcher Logic ========
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            // Function to apply the saved theme on page load
+            const applyTheme = () => {
+                const currentTheme = localStorage.getItem('theme');
+                if (currentTheme === 'light') {
+                    document.body.setAttribute('data-theme', 'light');
+                    themeToggle.checked = true;
+                } else {
+                    document.body.removeAttribute('data-theme');
+                    themeToggle.checked = false;
+                }
+            };
+
+            // Add event listener for the toggle
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    document.body.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.body.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Apply theme when the page loads
+            applyTheme();
+
 
             // ======== Popup Logic ========
             const contactPopup = document.getElementById('contact-popup');
@@ -421,26 +363,24 @@
 
             navLinks.forEach(link => {
                 const linkUrl = new URL(link.href).pathname;
-                if (currentPageUrl === linkUrl || (currentPageUrl.endsWith('/index.html') && linkUrl === '/')) {
+                if (currentPageUrl.endsWith(linkUrl) && linkUrl !== '/') {
                     link.classList.add('active');
+                } else if (currentPageUrl === '/' || currentPageUrl.endsWith('/index.html')) {
+                    document.querySelector('.nav-menu a[href="/index.html"]').classList.add('active');
                 }
             });
 
             // ======== Reveal on Scroll Animation Logic ========
             const revealElements = document.querySelectorAll('.reveal');
-
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        // Optional: unobserve after revealing to save resources
-                        // observer.unobserve(entry.target);
                     }
                 });
             }, {
-                threshold: 0.1 // Trigger when 10% of the element is visible
+                threshold: 0.1
             });
-
             revealElements.forEach(element => {
                 observer.observe(element);
             });
