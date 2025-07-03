@@ -15,6 +15,23 @@
     
     <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
     <style>
+        /* === Tool Specific Styles === */
+        .timer-bar-container {
+            width: 100%;
+            height: 10px;
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        #timer-bar {
+            height: 100%;
+            width: 100%;
+            background-color: var(--primary-color);
+            border-radius: 10px;
+            transition: width 1s linear; /* Smooth animation for the timer */
+        }
         .typing-test-area {
             background-color: var(--background-color);
             border: 1px solid var(--border-color);
@@ -24,17 +41,19 @@
             font-size: 1.2rem;
             line-height: 2;
             margin-bottom: 20px;
-            user-select: none; /* Prevents text selection */
+            user-select: none;
+            cursor: text;
         }
+        .typing-test-area.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .typing-test-area span { position: relative; }
         .typing-test-area span.correct { color: var(--text-color); }
-        .typing-test-area span.incorrect { color: #dc3545; background-color: rgba(220, 53, 69, 0.1); }
+        .typing-test-area span.incorrect { color: #dc3545; text-decoration: underline; }
         .typing-test-area span.active::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 2px;
-            width: 100%;
+            content: ''; position: absolute; bottom: 0; left: 0;
+            height: 2px; width: 100%;
             background-color: var(--primary-color);
             animation: blink 1s infinite;
         }
@@ -46,29 +65,15 @@
         }
         .stat-box {
             background: var(--background-color);
-            padding: 15px;
-            text-align: center;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
+            padding: 15px; text-align: center;
+            border-radius: 8px; border: 1px solid var(--border-color);
         }
-        .stat-box h4 {
-            color: var(--subtle-text-color);
-            font-size: 1rem;
-            margin-bottom: 5px;
-        }
-        .stat-box p {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-        #typing-input {
-            opacity: 0;
-            position: absolute;
-            z-index: -1;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
+        .stat-box h4 { color: var(--subtle-text-color); font-size: 1rem; margin-bottom: 5px; }
+        .stat-box p { font-size: 1.8rem; font-weight: 600; color: var(--primary-color); }
+        #typing-input { opacity: 0; position: absolute; z-index: -1; }
+        .test-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        @keyframes blink { 50% { opacity: 0; } }
     </style>
 </head>
 <body>
@@ -96,6 +101,10 @@
                     <h1>Typing Test</h1>
                 </div>
 
+                <div class="timer-bar-container">
+                    <div id="timer-bar"></div>
+                </div>
+
                 <div class="typing-stats">
                     <div class="stat-box"><h4>Time Left</h4><p id="time-left">60s</p></div>
                     <div class="stat-box"><h4>WPM</h4><p id="wpm">0</p></div>
@@ -103,33 +112,34 @@
                     <div class="stat-box"><h4>Accuracy</h4><p id="accuracy">100%</p></div>
                 </div>
 
-                <div class="typing-test-area" id="text-to-type" onclick="document.getElementById('typing-input').focus();">
+                <div class="typing-test-area disabled" id="text-to-type" onclick="document.getElementById('typing-input').focus();">
                     </div>
                 
-                <textarea id="typing-input" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
+                <textarea id="typing-input" autocorrect="off" autocapitalize="off" spellcheck="false" disabled></textarea>
 
-                <button id="reset-btn" class="btn-primary">Restart Test</button>
+                <div class="test-controls">
+                    <button id="start-btn" class="btn-primary">Start Test</button>
+                    <button id="reset-btn" class="btn-primary" style="background-color: var(--subtle-text-color);">Reset</button>
+                </div>
 
                 <div class="tool-content-section">
                     <h2>How to Use This Tool</h2>
                     <ol>
-                        <li><strong>Start Typing:</strong> Click on the paragraph area and start typing the highlighted text. The timer will begin as soon as you type the first character.</li>
-                        <li><strong>Follow Along:</strong> As you type, the tool will provide real-time feedback, highlighting correct characters in your theme's text color and incorrect ones in red.</li>
-                        <li><strong>Check Your Score:</strong> Once the 60-second timer ends, the test will stop, and your final Words Per Minute (WPM) and accuracy will be displayed.</li>
-                        <li><strong>Restart:</strong> Click the "Restart Test" button to get a new paragraph and try again to beat your score.</li>
+                        <li><strong>Prepare Yourself:</strong> Place your fingers on the keyboard in the standard home row position.</li>
+                        <li><strong>Start the Test:</strong> Click the "Start Test" button. This will enable the typing area and begin the 60-second countdown.</li>
+                        <li><strong>Begin Typing:</strong> Type the highlighted text in the paragraph area. The tool gives real-time feedback on correct and incorrect characters.</li>
+                        <li><strong>Check Your Score:</strong> Once the timer ends, your final Words Per Minute (WPM) and accuracy will be displayed.</li>
+                        <li><strong>Try Again:</strong> Click the "Reset" button to load a new paragraph and challenge yourself again.</li>
                     </ol>
                 </div>
 
                 <div class="tool-content-section">
                     <h2>About The Typing Test</h2>
                     <p>In our digitally-driven world, typing is no longer a specialized skill but a fundamental necessity, akin to reading and writing. From sending professional emails and drafting reports to chatting with friends and coding the next big application, the speed and accuracy of our typing directly impact our productivity and efficiency. A high typing speed allows you to translate thoughts into digital text almost seamlessly, saving countless hours over the course of a year. Our online Typing Test is a sophisticated tool designed to help you measure, practice, and improve this essential skill. It provides a real-world environment to gauge your performance by calculating your Words Per Minute (WPM) and accuracy, two key metrics that define typing proficiency.</p>
-                    
                     <h3>What are WPM and Accuracy?</h3>
                     <p>Understanding the metrics is the first step to improvement. **Words Per Minute (WPM)** is the standard measure of typing speed. It calculates how many words you can correctly type in a one-minute timeframe. For the purpose of standardized testing, a "word" is generally considered to be five characters long, including spaces. For example, typing 300 characters in one minute equates to a speed of 60 WPM (300 characters / 5). This standardization allows for a fair comparison of speeds across different texts and tests. **Accuracy**, on the other hand, measures the percentage of characters you type correctly. High WPM is impressive, but it's less effective if it comes at the cost of high error rates. A professional typist aims for both high speed and high accuracy (typically 98% or above). Our tool tracks both metrics in real-time, giving you instant feedback to help you find the optimal balance between speed and precision.</p>
-
                     <h3>How to Improve Your Typing Skills</h3>
                     <p>Improving your typing speed is a gradual process that relies on consistent practice and proper technique. The most effective method is **touch typing**, which involves typing without looking at the keyboard. This technique uses muscle memory to locate keys, with each finger assigned to a specific section of the keyboard. The "home row" (ASDF for the left hand, JKL; for the right) is the base from which your fingers move. Regular practice, even for just 15-20 minutes a day using our Typing Test, can significantly build this muscle memory. Another crucial aspect is **posture**. Sit up straight with your feet flat on the floor, keep your wrists straight, and position the screen at eye level. This ergonomic setup not only prevents strain and injury but also allows for more fluid and efficient finger movements. Finally, focus on accuracy before speed. It is much easier to build speed on a foundation of accuracy than it is to correct ingrained bad habits and frequent mistakes later on.</p>
-
                     <h3>The Benefits of Faster Typing</h3>
                     <p>The rewards of becoming a faster, more accurate typist are substantial. For **students**, it means taking notes faster in lectures and completing assignments and essays in less time. For **professionals**, it translates to quicker email responses, faster report generation, and more efficient communication with colleagues, freeing up valuable time for more critical tasks. For **developers and coders**, typing speed is directly linked to productivity, as writing thousands of lines of code is a daily reality. Beyond professional gains, faster typing enhances your personal digital interactions, making everything from social media to personal journaling a more fluid and enjoyable experience. Our Typing Test is more than just a game; it is a training ground for developing a skill that will serve you for a lifetime. By providing engaging paragraphs and precise feedback, it makes the practice enjoyable and helps you unlock your full digital potential.</p>
                 </div>
@@ -160,18 +170,15 @@
             const wpmEl = document.getElementById('wpm');
             const mistakesEl = document.getElementById('mistakes');
             const accuracyEl = document.getElementById('accuracy');
+            const startBtn = document.getElementById('start-btn');
             const resetBtn = document.getElementById('reset-btn');
+            const timerBar = document.getElementById('timer-bar');
 
-            const paragraphs = [
-                "The quick brown fox jumps over the lazy dog. This sentence is often used to test typewriters and computer keyboards because it contains all the letters of the alphabet. It is a classic pangram.",
-                "Success is not final, failure is not fatal: it is the courage to continue that counts. This quote by Winston Churchill reminds us that perseverance is more important than either victory or defeat.",
-                "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment. Ralph Waldo Emerson encourages us to value our individuality and stay true to ourselves.",
-                "The only way to do great work is to love what you do. If you have not found it yet, keep looking. Do not settle. As with all matters of the heart, you will know when you find it. This is a famous quote from Steve Jobs.",
-                "In three words I can sum up everything I have learned about life: it goes on. Robert Frost captures the resilience of the human spirit with this simple yet profound observation about life's continuity."
-            ];
+            const paragraphs = [ "The quick brown fox jumps over the lazy dog. This sentence is often used to test typewriters and computer keyboards because it contains all the letters of the alphabet.", "Success is not final, failure is not fatal: it is the courage to continue that counts. This quote by Winston Churchill reminds us that perseverance is more important than either victory or defeat.", "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment. Ralph Waldo Emerson encourages us to value our individuality and stay true to ourselves.", "The only way to do great work is to love what you do. If you have not found it yet, keep looking. Do not settle. As with all matters of the heart, you will know when you find it.", "In three words I can sum up everything I have learned about life: it goes on. Robert Frost captures the resilience of the human spirit with this simple yet profound observation." ];
 
             let timer;
-            let timeLeft = 60;
+            let timeLimit = 60;
+            let timeLeft = timeLimit;
             let mistakes = 0;
             let charIndex = 0;
             let isTyping = false;
@@ -180,90 +187,106 @@
                 const randomIndex = Math.floor(Math.random() * paragraphs.length);
                 textToTypeEl.innerHTML = "";
                 paragraphs[randomIndex].split("").forEach(char => {
-                    let span = `<span>${char}</span>`;
-                    textToTypeEl.innerHTML += span;
+                    textToTypeEl.innerHTML += `<span>${char}</span>`;
                 });
-                textToTypeEl.querySelectorAll("span")[0].classList.add("active");
-                document.addEventListener("keydown", () => typingInputEl.focus());
+                textToTypeEl.querySelector("span").classList.add("active");
             }
 
-            function startTyping() {
-                const characters = textToTypeEl.querySelectorAll("span");
-                let typedChar = typingInputEl.value.split("")[charIndex];
-                
-                if (charIndex < characters.length && timeLeft > 0) {
-                    if (!isTyping) {
-                        timer = setInterval(updateTimer, 1000);
-                        isTyping = true;
-                    }
-
-                    if (typedChar == null) { // Handling backspace
-                        if (charIndex > 0) {
-                            charIndex--;
-                            if (characters[charIndex].classList.contains("incorrect")) {
-                                mistakes--;
-                            }
-                            characters[charIndex].classList.remove("correct", "incorrect");
-                        }
-                    } else {
-                        if (characters[charIndex].innerText === typedChar) {
-                            characters[charIndex].classList.add("correct");
-                        } else {
-                            mistakes++;
-                            characters[charIndex].classList.add("incorrect");
-                        }
-                        charIndex++;
-                    }
-
-                    characters.forEach(span => span.classList.remove("active"));
-                    if(charIndex < characters.length) {
-                       characters[charIndex].classList.add("active");
-                    }
-
-                    mistakesEl.innerText = mistakes;
-                    
-                    let correctChars = charIndex - mistakes;
-                    let accuracy = ((correctChars / charIndex) * 100) || 100;
-                    accuracyEl.innerText = `${Math.round(accuracy)}%`;
-                    
-                    let wpm = Math.round(((charIndex - mistakes) / 5) / ((60 - timeLeft) / 60));
-                    wpm = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
-                    wpmEl.innerText = wpm;
-
-                } else {
-                    clearInterval(timer);
-                    typingInputEl.value = "";
+            function startTest() {
+                if (timeLeft === timeLimit) { // Only start if timer is at full
+                    isTyping = true;
+                    typingInputEl.disabled = false;
+                    textToTypeEl.classList.remove('disabled');
+                    typingInputEl.focus();
+                    timer = setInterval(updateTimer, 1000);
+                    startBtn.disabled = true;
                 }
+            }
+            
+            function trackInput() {
+                if (!isTyping) return;
+
+                const characters = textToTypeEl.querySelectorAll("span");
+                const typedText = typingInputEl.value;
+                const currentTypedChar = typedText[charIndex];
+
+                if (charIndex >= characters.length) {
+                    endTest();
+                    return;
+                }
+                
+                const expectedChar = characters[charIndex].innerText;
+                
+                if(currentTypedChar === expectedChar) {
+                    characters[charIndex].classList.add("correct");
+                    characters[charIndex].classList.remove("incorrect");
+                } else {
+                    characters[charIndex].classList.add("incorrect");
+                    characters[charIndex].classList.remove("correct");
+                    mistakes++;
+                }
+                
+                charIndex++;
+                
+                characters.forEach(span => span.classList.remove("active"));
+                if(charIndex < characters.length) {
+                    characters[charIndex].classList.add("active");
+                }
+
+                mistakesEl.innerText = mistakes;
+                
+                let correctChars = typedText.length - mistakes;
+                let accuracy = Math.round((correctChars / typedText.length) * 100) || 100;
+                accuracyEl.innerText = `${accuracy}%`;
             }
 
             function updateTimer() {
                 if (timeLeft > 0) {
                     timeLeft--;
                     timeLeftEl.innerText = `${timeLeft}s`;
-                    let wpm = Math.round(((charIndex - mistakes) / 5) / ((60 - timeLeft) / 60));
-                    wpmEl.innerText = wpm < 0 || !wpm || wpm === Infinity ? 0 : wpm;
+                    timerBar.style.width = `${(timeLeft / timeLimit) * 100}%`;
+                    
+                    // Calculate WPM on the fly
+                    let correctChars = charIndex - mistakes;
+                    let grossWPM = (correctChars / 5) / ((timeLimit - timeLeft) / 60);
+                    wpmEl.innerText = Math.round(grossWPM) || 0;
                 } else {
-                    clearInterval(timer);
+                    endTest();
                 }
             }
 
-            function resetTest() {
-                loadParagraph();
+            function endTest() {
                 clearInterval(timer);
-                timeLeft = 60;
+                isTyping = false;
+                typingInputEl.disabled = true;
+                startBtn.disabled = true;
+            }
+
+            function resetTest() {
+                clearInterval(timer);
+                timeLeft = timeLimit;
                 charIndex = 0;
                 mistakes = 0;
                 isTyping = false;
+                
                 timeLeftEl.innerText = `${timeLeft}s`;
                 wpmEl.innerText = 0;
                 mistakesEl.innerText = 0;
                 accuracyEl.innerText = `100%`;
                 typingInputEl.value = "";
+                timerBar.style.width = '100%';
+                
+                loadParagraph();
+                
+                typingInputEl.disabled = true;
+                textToTypeEl.classList.add('disabled');
+                startBtn.disabled = false;
             }
 
             loadParagraph();
-            typingInputEl.addEventListener("input", startTyping);
+            startBtn.addEventListener("click", startTest);
             resetBtn.addEventListener("click", resetTest);
+            typingInputEl.addEventListener("input", trackInput);
         });
     </script>
 </body>
