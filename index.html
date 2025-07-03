@@ -3,9 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Boost My Skills - Free Online Tools</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Boost My Skills - Free Tools</title>
+
+  <!-- ✅ AOS Animation Library -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- ✅ Favicon -->
   <link rel="icon" href="assets/icons/favicon.ico" />
+
+  <!-- ✅ Embedded CSS Style -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to right, #eef2f3, #f9f9f9);
+      color: #333;
+      overflow-x: hidden;
+    }
+    .popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff8e1;
+      border-left: 4px solid #ffc107;
+      padding: 12px 16px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.08);
+      font-size: 14px;
+      z-index: 999;
+    }
+    .popup a {
+      margin-left: 10px;
+      font-size: 18px;
+      text-decoration: none;
+      color: #000;
+    }
+    header {
+      background: linear-gradient(90deg, #2c5364, #203a43, #0f2027);
+      color: #fff;
+      padding: 25px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header .logo {
+      height: 60px;
+      animation: bounce 3s infinite;
+    }
+    header h1 {
+      font-size: 28px;
+      margin-top: 10px;
+    }
+    header nav {
+      margin-top: 10px;
+    }
+    header nav a {
+      color: #ffffffcc;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s ease;
+    }
+    header nav a:hover {
+      color: #ffd700;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .welcome {
+      padding: 60px 20px;
+      text-align: center;
+      background: #ffffff;
+    }
+    .welcome h2 {
+      font-size: 36px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    .welcome p {
+      font-size: 18px;
+      color: #555;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .tools {
+      padding: 40px 20px;
+    }
+    .tools h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 25px;
+      color: #34495e;
+    }
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      padding: 0 10px;
+    }
+    .tool-grid a {
+      background: linear-gradient(to bottom right, #ffffff, #f0f8ff);
+      border-radius: 15px;
+      text-align: center;
+      padding: 20px;
+      font-weight: 500;
+      color: #333;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+    .tool-grid a:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to bottom right, #e3f2fd, #bbdefb);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .blog-preview {
+      padding: 50px 20px;
+      background: #f1f1f1;
+    }
+    .blog-preview h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .blog-preview ul {
+      list-style: none;
+      text-align: center;
+    }
+    .blog-preview li {
+      margin: 12px 0;
+    }
+    .blog-preview a {
+      color: #0077ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .blog-preview a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      background: #1a1a1a;
+      color: #ccc;
+      padding: 30px 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .footer-tools {
+      margin-top: 15px;
+      font-size: 13px;
+      color: #aaa;
+      max-width: 800px;
+      margin-inline: auto;
+    }
+  </style>
 </head>
 <body>
 
@@ -17,7 +179,7 @@
   </div>
 
   <!-- 🔹 Header -->
-  <header>
+  <header data-aos="fade-down">
     <img src="assets/images/logo.png" alt="Boost My Skills Logo" class="logo" />
     <h1>Boost My Skills</h1>
     <nav>
@@ -28,14 +190,14 @@
     </nav>
   </header>
 
-  <!-- 🙌 Welcome Section -->
-  <section class="welcome">
+  <!-- 🙌 Welcome -->
+  <section class="welcome" data-aos="fade-up">
     <h2>Welcome to Boost My Skills</h2>
     <p>Access 20+ trending and useful online tools to improve your productivity, speed, and creativity — all in one place and completely free!</p>
   </section>
 
-  <!-- 🧰 Tools Grid -->
-  <section class="tools">
+  <!-- 🧰 Tools -->
+  <section class="tools" data-aos="zoom-in-up">
     <h2>Explore Our Free Tools</h2>
     <div class="tool-grid">
       <a href="tools/bmi-calculator.html">BMI Calculator</a>
@@ -61,8 +223,8 @@
     </div>
   </section>
 
-  <!-- 📰 Blog Preview -->
-  <section class="blog-preview">
+  <!-- 📰 Blog -->
+  <section class="blog-preview" data-aos="fade-up">
     <h2>Latest Blog Posts</h2>
     <ul>
       <li><a href="blog/tool-usage-tips.html">Top 5 Tool Usage Tips</a></li>
@@ -72,7 +234,7 @@
   </section>
 
   <!-- 🔻 Footer -->
-  <footer>
+  <footer data-aos="fade-up">
     <p>© 2025–2026 Boost My Skills. All rights reserved.</p>
     <div class="footer-tools">
       <strong>All Tools:</strong><br />
@@ -80,5 +242,9 @@
     </div>
   </footer>
 
+  <!-- ✅ AOS Init -->
+  <script>
+    AOS.init();
+  </script>
 </body>
 </html>
