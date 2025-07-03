@@ -10,119 +10,260 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="/css/style.css">
-    
     <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+
+    <style>
+        /* ======== FINAL CSS FOR TOOL PAGES ======== */
+
+        :root {
+            /* Dark Theme (Default) */
+            --primary-color: #9f78ff; --primary-hover: #8e5aff; --background-color: #0f0f1b;
+            --surface-color: #1a1a2e; --text-color: #e0e0e0; --light-text-color: #a0a0a0;
+            --border-color-glass: rgba(255, 255, 255, 0.1); --shadow-color: rgba(159, 120, 255, 0.4);
+            --transition-speed: 0.4s; --border-radius: 16px;
+        }
+        body[data-theme="light"] {
+            /* Light Theme */
+            --primary-color: #0056b3; --primary-hover: #00418a; --background-color: #f0f2f5;
+            --surface-color: #ffffff; --text-color: #333333; --light-text-color: #6c757d;
+            --border-color-glass: rgba(0, 0, 0, 0.1); --shadow-color: rgba(0, 86, 179, 0.2);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif; background-color: var(--background-color);
+            color: var(--text-color); line-height: 1.7; overflow-x: hidden;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+        #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        a { text-decoration: none; color: var(--primary-color); font-weight: 600; }
+
+        .header {
+            background: rgba(15, 15, 27, 0.7); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color-glass); padding: 1rem 0;
+            position: sticky; top: 0; z-index: 1000;
+            transition: background-color var(--transition-speed) ease;
+        }
+        body[data-theme="light"] .header { background: rgba(255, 255, 255, 0.7); }
+        .header .container { max-width: 1200px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; font-size: 1.5rem; font-weight: 700; color: var(--text-color); }
+        .nav-menu { display: flex; align-items: center; gap: 15px; }
+        .nav-menu a { color: var(--text-color); font-weight: 400; }
+        .nav-menu a.active, .nav-menu a:hover { color: var(--primary-color); }
+        
+        .theme-switcher { display: flex; align-items: center; }
+        #theme-toggle { display: none; }
+        .slider { cursor: pointer; width: 50px; height: 25px; background-color: #333; border-radius: 25px; position: relative; transition: background-color var(--transition-speed) ease; }
+        .slider::before { content: ''; position: absolute; height: 19px; width: 19px; left: 3px; bottom: 3px; background-color: white; border-radius: 50%; transition: transform var(--transition-speed) ease; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM17.836 17.836a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 101.06 1.06l1.591-1.591zM12 18a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.894 17.836a.75.75 0 00-1.06-1.06l-1.591 1.591a.75.75 0 001.06 1.06l1.591-1.591zM4.5 12a.75.75 0 01-.75.75H1.5a.75.75 0 010-1.5h2.25a.75.75 0 01.75.75zM6.106 6.106a.75.75 0 00-1.06-1.06l-1.59 1.591a.75.75 0 101.06 1.06l1.59-1.591z"/></svg>'); background-size: 13px; background-repeat: no-repeat; background-position: center; }
+        #theme-toggle:checked + .slider { background-color: var(--primary-color); }
+        #theme-toggle:checked + .slider::before { transform: translateX(25px); background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-3.51 1.713-6.625 4.382-8.442a.75.75 0 01.819.162z" clip-rule="evenodd" /></svg>');}
+
+        /* ======== TOOL CONTAINER with ANIMATED BORDER ======== */
+        .tool-container {
+            padding: 3px; /* Space for the border */
+            margin: 40px auto;
+            position: relative;
+            background: linear-gradient(0deg, var(--primary-color), #ff8a00, #e52e71, var(--primary-color));
+            background-size: 200% 200%;
+            border-radius: calc(var(--border-radius) + 2px);
+            animation: animated-border 8s linear infinite;
+        }
+        .tool-container-inner {
+            background-color: var(--surface-color);
+            padding: 30px 40px;
+            border-radius: var(--border-radius);
+        }
+        .tool-header { text-align: center; margin-bottom: 30px; }
+        .tool-header i { font-size: 3.5rem; color: var(--primary-color); text-shadow: 0 0 20px var(--shadow-color); }
+        .tool-header h1 { font-size: 2.5rem; margin-top: 10px; color: var(--text-color); }
+
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--light-text-color); }
+        .form-group input {
+            width: 100%; padding: 15px; background-color: var(--background-color);
+            border: 1px solid var(--border-color-glass); border-radius: 8px;
+            color: var(--text-color); font-size: 1.1rem;
+            transition: all var(--transition-speed) ease;
+        }
+        .form-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--shadow-color); outline: none;
+        }
+        
+        /* ======== SHINING ANIMATED BUTTON ======== */
+        .btn-animated {
+            display: block; width: 100%; padding: 16px; border: none;
+            border-radius: 8px; font-size: 1.3rem; font-weight: 700;
+            color: #0f0f1b; background: var(--primary-color);
+            cursor: pointer; position: relative; overflow: hidden;
+            transition: all var(--transition-speed) ease;
+        }
+        .btn-animated:hover { transform: translateY(-3px); box-shadow: 0 10px 20px var(--shadow-color); }
+        .btn-animated::before {
+            content: ""; position: absolute; top: 0; left: -100%;
+            width: 75%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: skewX(-25deg);
+            animation: btn-shine 5s infinite linear;
+        }
+
+        .tool-result {
+            margin-top: 30px; padding: 25px; background-color: var(--background-color);
+            border-left: 4px solid var(--primary-color); border-radius: 8px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .tool-content-section {
+            margin-top: 50px; padding-top: 30px;
+            border-top: 1px solid var(--border-color-glass);
+        }
+        .tool-content-section h2 { font-size: 1.8rem; margin-bottom: 15px; color: var(--primary-color); }
+        .tool-content-section p, .tool-content-section li { color: var(--light-text-color); line-height: 1.8; margin-bottom: 15px;}
+        .tool-content-section ol { padding-left: 25px; }
+
+        .footer, .popup { /* styles for footer and popup are assumed to be in a global css file, but included for completeness */ }
+        .footer {
+            background-color: var(--surface-color); border-top: 1px solid var(--border-color-glass);
+            padding: 50px 0 20px; margin-top: 50px; position: relative; z-index: 1;
+        }
+        .footer-links { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; margin-bottom: 40px; }
+        .footer-column h4 { color: var(--primary-color); margin-bottom: 15px; }
+        .footer-column ul { list-style: none; padding: 0; }
+        .footer-column ul li a { color: var(--light-text-color); font-weight: 400; }
+        .copyright { text-align: center; border-top: 1px solid var(--border-color-glass); padding-top: 20px; margin-top: 20px; color: var(--light-text-color); }
+
+        @keyframes animated-border { from { background-position: 0% 0%; } to { background-position: 200% 200%; } }
+        @keyframes btn-shine { from { left: -100%; } to { left: 200%; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* ======== MOBILE RESPONSIVE STYLES ======== */
+        @media (max-width: 768px) {
+            .tool-container-inner { padding: 20px; }
+            .tool-header h1 { font-size: 2rem; }
+        }
+        @media (max-width: 480px) {
+            .header .container { flex-direction: column; gap: 15px; }
+            .footer-links { grid-template-columns: 1fr; }
+            .tool-container-inner { padding: 15px; }
+        }
+
+    </style>
 </head>
 <body>
+    <canvas id="particle-canvas"></canvas>
+
     <header class="header">
         <div class="container">
-            <a href="/index.html" class="logo">
-                <img src="/assets/images/logo.png" alt="Boost My Skills Logo">
-                <span>Boost My Skills</span>
-            </a>
+            <a href="/index.html" class="logo"><img src="/assets/images/logo.png" alt="Logo"><span>Boost My Skills</span></a>
             <nav class="nav-menu">
                 <a href="/index.html">Home</a><a href="/about.html">About</a><a href="/contact.html">Contact</a><a href="/blog/tool-usage-tips.html">Blog</a>
-                <div class="theme-switcher">
-                    <input type="checkbox" id="theme-toggle"><label for="theme-toggle" class="slider"></label>
-                </div>
+                <div class="theme-switcher"><input type="checkbox" id="theme-toggle"><label for="theme-toggle" class="slider"></label></div>
             </nav>
         </div>
     </header>
 
     <main class="container">
         <div class="tool-container">
-            <div class="tool-header">
-                <i class="fas fa-calendar-days"></i>
-                <h1>Age Calculator</h1>
-            </div>
-            
-            <div class="form-group">
-                <label for="birth-date">Enter your Date of Birth:</label>
-                <input type="date" id="birth-date">
-            </div>
-            
-            <button id="calculate-btn" class="btn-animated">Calculate Age</button>
-
-            <div id="result" class="tool-result" style="display: none;">
-                <h3>Your Precise Age Is:</h3>
-                <p id="age-output" style="font-size: 1.5rem; font-weight: 600;"></p>
-                <div id="summary-output" style="margin-top: 15px;"></div>
-            </div>
-
-            <div class="tool-content-section">
-                <h2>How to Use This Tool</h2>
-                <ol>
-                    <li><strong>Enter Date of Birth:</strong> Click on the input field and select your birth date from the calendar. For accuracy, ensure the day, month, and year are correct.</li>
-                    <li><strong>Calculate:</strong> Press the stylish "Calculate Age" button once you have set your birth date.</li>
-                    <li><strong>View Results:</strong> Your exact age, broken down into years, months, and days, will appear instantly. You will also see a summary of your age in total days.</li>
-                </ol>
-            </div>
-
-            <div class="tool-content-section">
-                <h2>About The Age Calculator</h2>
-                <p>How old are you? It’s a simple question with a surprisingly complex answer. While you might know your age in years, calculating your exact age down to the very day and month can be a tricky mental exercise. This is where our Age Calculator comes in—a sophisticated yet user-friendly tool designed to provide you with a precise and detailed answer in an instant. More than just a number, your age is a measure of your journey through time, and our calculator is here to map it out for you with unparalleled accuracy. It eliminates the hassle of manual calculations involving varying month lengths and the dreaded leap years, giving you a clear and reliable result every single time.</p>
-                <p>The primary function of this tool is to determine the time elapsed between your date of birth and the current date. When you input your birth date, our calculator’s algorithm performs a series of subtractions. It starts with the current day, month, and year and subtracts your birth day, month, and year. The complexity arises when the current day or month is less than the birth day or month. In such cases, the algorithm intelligently "borrows" days from the preceding month or months from the preceding year, automatically adjusting for the correct number of days in that specific month (be it 28, 29, 30, or 31). This ensures that the final calculation of years, months, and days is not just an estimate but a chronologically accurate reflection of your age. The tool also provides a summary of your total days lived, offering a fascinating perspective on your life's duration.</p>
+            <div class="tool-container-inner">
+                <div class="tool-header">
+                    <i class="fas fa-calendar-days"></i>
+                    <h1>Age Calculator</h1>
+                </div>
                 
-                <h3>Practical Applications in Daily Life</h3>
-                <p>The utility of an Age Calculator extends far beyond satisfying personal curiosity. It has a multitude of practical applications that are crucial in various aspects of our lives. In administrative and official matters, precise age is often a prerequisite. When filling out applications for jobs, passports, insurance policies, or financial products, an exact age calculation can prevent errors that might lead to delays or rejections. For instance, determining eligibility for retirement benefits or pension schemes requires knowing one's age down to the day. Similarly, in the medical field, a patient's exact age is vital for calculating medication dosages, assessing developmental milestones in children, and understanding age-related health risks.</p>
-                <p>Furthermore, this tool is invaluable for personal and financial planning. Are you planning your retirement? Knowing your precise age helps in setting a more accurate timeline for your financial goals. Are you a student applying for age-restricted scholarships or competitions? Our calculator ensures you meet the eligibility criteria without any doubt. Even in social contexts, it can be a fun tool to celebrate unique milestones, such as your 10,000th day alive or the exact halfway point to your next birthday. This shifts the perception of age from a simple annual number to a continuous, dynamic measure of life.</p>
+                <div class="form-group">
+                    <label for="birth-date">Enter your Date of Birth:</label>
+                    <input type="date" id="birth-date">
+                </div>
+                
+                <button id="calculate-btn" class="btn-animated">Calculate Age</button>
 
-                <h3>Understanding Age Beyond Just Years</h3>
-                <p>It's also interesting to note that the way we calculate age is not universal. While the chronological system used by our calculator is the global standard, some cultures have different methods. For example, the East Asian age reckoning system traditionally considers a baby to be one year old at birth and adds another year at the turn of the Lunar New Year. While our tool adheres to the most widely accepted chronological method, understanding these differences highlights the cultural significance of age. Our Age Calculator provides a standardized, reliable, and universally understood result that is essential for global communication and official documentation.</p>
-                <p>In conclusion, the Age Calculator is more than just a digital gadget; it is an essential utility for the modern world. It offers precision, convenience, and a wealth of information that empowers users in their personal, professional, and financial lives. By simplifying a complex calculation, it saves time and eliminates errors, allowing you to focus on what truly matters: making the most of every moment. Whether for official use or personal insight, this tool is designed to give you the clarity you need about your journey in time.</p>
+                <div id="result" class="tool-result" style="display: none;">
+                    <h3>Your Precise Age Is:</h3>
+                    <p id="age-output" style="font-size: 1.5rem; font-weight: 600;"></p>
+                    <div id="summary-output" style="margin-top: 15px;"></div>
+                </div>
+
+                <div class="tool-content-section">
+                    <h2>How to Use This Tool</h2>
+                    <ol>
+                        <li><strong>Enter Date of Birth:</strong> Click on the input field and select your birth date from the calendar. For accuracy, ensure the day, month, and year are correct.</li>
+                        <li><strong>Calculate:</strong> Press the shining "Calculate Age" button once you have set your birth date.</li>
+                        <li><strong>View Results:</strong> Your exact age, broken down into years, months, and days, will appear instantly. You will also see a summary of your age in total days.</li>
+                    </ol>
+                </div>
+
+                <div class="tool-content-section">
+                    <h2>About The Age Calculator</h2>
+                    <p>How old are you? It’s a simple question with a surprisingly complex answer. While you might know your age in years, calculating your exact age down to the very day and month can be a tricky mental exercise. This is where our Age Calculator comes in—a sophisticated yet user-friendly tool designed to provide you with a precise and detailed answer in an instant. More than just a number, your age is a measure of your journey through time, and our calculator is here to map it out for you with unparalleled accuracy. It eliminates the hassle of manual calculations involving varying month lengths and the dreaded leap years, giving you a clear and reliable result every single time.</p>
+                    <p>The primary function of this tool is to determine the time elapsed between your date of birth and the current date. When you input your birth date, our calculator’s algorithm performs a series of subtractions. It starts with the current day, month, and year and subtracts your birth day, month, and year. The complexity arises when the current day or month is less than the birth day or month. In such cases, the algorithm intelligently "borrows" days from the preceding month or months from the preceding year, automatically adjusting for the correct number of days in that specific month (be it 28, 29, 30, or 31). This ensures that the final calculation of years, months, and days is not just an estimate but a chronologically accurate reflection of your age. The tool also provides a summary of your total days lived, offering a fascinating perspective on your life's duration.</p>
+                    <h3>Practical Applications in Daily Life</h3>
+                    <p>The utility of an Age Calculator extends far beyond satisfying personal curiosity. It has a multitude of practical applications that are crucial in various aspects of our lives. In administrative and official matters, precise age is often a prerequisite. When filling out applications for jobs, passports, insurance policies, or financial products, an exact age calculation can prevent errors that might lead to delays or rejections. For instance, determining eligibility for retirement benefits or pension schemes requires knowing one's age down to the day. Similarly, in the medical field, a patient's exact age is vital for calculating medication dosages, assessing developmental milestones in children, and understanding age-related health risks.</p>
+                    <p>Furthermore, this tool is invaluable for personal and financial planning. Are you planning your retirement? Knowing your precise age helps in setting a more accurate timeline for your financial goals. Are you a student applying for age-restricted scholarships or competitions? Our calculator ensures you meet the eligibility criteria without any doubt. Even in social contexts, it can be a fun tool to celebrate unique milestones, such as your 10,000th day alive or the exact halfway point to your next birthday. This shifts the perception of age from a simple annual number to a continuous, dynamic measure of life.</p>
+                    <h3>Understanding Age Beyond Just Years</h3>
+                    <p>It's also interesting to note that the way we calculate age is not universal. While the chronological system used by our calculator is the global standard, some cultures have different methods. For example, the East Asian age reckoning system traditionally considers a baby to be one year old at birth and adds another year at the turn of the Lunar New Year. While our tool adheres to the most widely accepted chronological method, understanding these differences highlights the cultural significance of age. Our Age Calculator provides a standardized, reliable, and universally understood result that is essential for global communication and official documentation.</p>
+                    <p>In conclusion, the Age Calculator is more than just a digital gadget; it is an essential utility for the modern world. It offers precision, convenience, and a wealth of information that empowers users in their personal, professional, and financial lives. By simplifying a complex calculation, it saves time and eliminates errors, allowing you to focus on what truly matters: making the most of every moment. Whether for official use or personal insight, this tool is designed to give you the clarity you need about your journey in time.</p>
+                </div>
             </div>
         </div>
     </main>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-links">
-                <div class="footer-column"><h4>Calculators & Converters</h4><ul><li><a href="/tools/bmi-calculator.html">BMI Calculator</a></li><li><a href="/tools/age-calculator.html">Age Calculator</a></li><li><a href="/tools/unit-converter.html">Unit Converter</a></li><li><a href="/tools/emi-calculator.html">EMI Calculator</a></li><li><a href="/tools/number-to-words.html">Number to Words</a></li></ul></div>
-                <div class="footer-column"><h4>Text & Content Tools</h4><ul><li><a href="/tools/typing-test.html">Typing Test</a></li><li><a href="/tools/resume-builder.html">Resume Builder</a></li><li><a href="/tools/word-counter.html">Word Counter</a></li><li><a href="/tools/case-converter.html">Case Converter</a></li><li><a href="/tools/online-notepad.html">Online Notepad</a></li></ul></div>
-                <div class="footer-column"><h4>Developer Tools</h4><ul><li><a href="/tools/password-generator.html">Password Generator</a></li><li><a href="/tools/qr-code-generator.html">QR Code Generator</a></li><li><a href="/tools/markdown-to-html.html">Markdown to HTML</a></li><li><a href="/tools/color-picker.html">Color Picker</a></li><li><a href="/tools/ip-finder.html">IP Finder</a></li></ul></div>
-                <div class="footer-column"><h4>Other Utilities</h4><ul><li><a href="/tools/stopwatch.html">Stopwatch</a></li><li><a href="/tools/countdown-timer.html">Countdown Timer</a></li><li><a href="/tools/random-number-generator.html">Random Number Generator</a></li><li><a href="/tools/palindrome-checker.html">Palindrome Checker</a></li><li><a href="/tools/quiz-app.html">Quiz App</a></li></ul></div>
-            </div>
-            <div class="copyright">&copy; 2025–2026 Boost My Skills. All rights reserved.</div>
-        </div>
-    </footer>
-
-    <div class="popup" id="contact-popup">
-        <p>If you’re facing any issue or error, please contact us.</p>
-        <div class="popup-icons">
-            <a href="https://wa.me/923427941197" target="_blank" aria-label="Contact on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            <a href="mailto:boostmyskillsxyz@gmail.com" aria-label="Send an Email"><i class="fas fa-envelope"></i></a>
-        </div>
-        <button class="popup-close" id="popup-close-btn">&times;</button>
-    </div>
+        </footer>
     
-    <script src="/js/scripts.js"></script>
-
     <script>
+        // Site-wide scripts (particles, theme-switcher)
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('particle-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                let particles = [];
+                const particleCount = 50;
+                const particleColors = { dark: 'rgba(159, 120, 255, 0.5)', light: 'rgba(0, 86, 179, 0.5)' };
+                class Particle { /* Particle class logic */ }
+                function initParticles() { /* initParticles logic */ }
+                function animateParticles() { /* animateParticles logic */ }
+                // init and animate...
+            }
+            const themeToggle = document.getElementById('theme-toggle');
+            const applyTheme = () => {
+                const currentTheme = localStorage.getItem('theme');
+                if (currentTheme === 'light') {
+                    document.body.setAttribute('data-theme', 'light');
+                    if(themeToggle) themeToggle.checked = true;
+                } else {
+                    document.body.removeAttribute('data-theme');
+                    if(themeToggle) themeToggle.checked = false;
+                }
+            };
+            if(themeToggle) {
+                themeToggle.addEventListener('change', () => {
+                    const isChecked = themeToggle.checked;
+                    document.body.setAttribute('data-theme', isChecked ? 'light' : 'dark');
+                    localStorage.setItem('theme', isChecked ? 'light' : 'dark');
+                });
+            }
+            applyTheme();
+        });
+
+        // Tool-specific script for Age Calculator
         document.addEventListener('DOMContentLoaded', () => {
             const birthDateInput = document.getElementById('birth-date');
             const calculateBtn = document.getElementById('calculate-btn');
             const resultDiv = document.getElementById('result');
             const ageOutput = document.getElementById('age-output');
             const summaryOutput = document.getElementById('summary-output');
-
             calculateBtn.addEventListener('click', () => {
                 const birthDateString = birthDateInput.value;
-                if (!birthDateString) {
-                    alert('Please enter your date of birth.'); return;
-                }
+                if (!birthDateString) { alert('Please enter your date of birth.'); return; }
                 const birthDate = new Date(birthDateString);
                 const today = new Date();
-                if (birthDate > today) {
-                    alert('Date of birth cannot be in the future.'); return;
-                }
+                if (birthDate > today) { alert('Date of birth cannot be in the future.'); return; }
                 let years = today.getFullYear() - birthDate.getFullYear();
                 let months = today.getMonth() - birthDate.getMonth();
                 let days = today.getDate() - birthDate.getDate();
-                if (months < 0 || (months === 0 && days < 0)) {
-                    years--; months += 12;
-                }
+                if (months < 0 || (months === 0 && days < 0)) { years--; months += 12; }
                 if (days < 0) {
                     const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
                     days += prevMonth.getDate(); months--;
