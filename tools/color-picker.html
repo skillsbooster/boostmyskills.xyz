@@ -1,1 +1,278 @@
-<h1>Color Picker</h1><p>This is the color picker tool page.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker - Boost My Skills</title>
+    <meta name="description" content="A free online color picker tool. Select a color and get its HEX, RGB, and HSL values instantly. Perfect for web designers and developers.">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon">
+    <style>
+        .color-picker-layout {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .color-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: var(--border-radius);
+            border: 2px solid var(--border-color);
+            transition: background-color 0.3s;
+        }
+        .color-values {
+            flex-grow: 1;
+        }
+        .value-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .value-group input[type="text"] {
+            flex-grow: 1;
+            background-color: var(--background-color);
+        }
+        .value-group button {
+            margin-left: 10px;
+            padding: 8px 12px;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+        }
+        .value-group button:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        #color-input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+        }
+        @media (max-width: 600px) {
+            .color-picker-layout {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="/index.html" class="logo">
+                <img src="/assets/images/logo.png" alt="Boost My Skills Logo">
+                <span>Boost My Skills</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="/index.html">Home</a>
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/blog/tool-usage-tips.html">Blog</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="tool-container">
+                <h1 class="section-title" style="margin-bottom: 30px;">Color Picker</h1>
+                <p style="text-align: center; margin-top: -30px; margin-bottom: 30px;">Select a color to get its HEX, RGB, and HSL codes.</p>
+
+                <div class="color-picker-layout">
+                    <div class="color-preview-container">
+                        <input type="color" id="color-input" value="#007bff">
+                        <div id="color-preview" style="background-color: #007bff;"></div>
+                    </div>
+                    <div class="color-values">
+                        <div class="value-group">
+                            <input type="text" id="hex-value" readonly>
+                            <button class="copy-btn" data-target="hex-value">Copy</button>
+                        </div>
+                        <div class="value-group">
+                            <input type="text" id="rgb-value" readonly>
+                            <button class="copy-btn" data-target="rgb-value">Copy</button>
+                        </div>
+                        <div class="value-group">
+                            <input type="text" id="hsl-value" readonly>
+                            <button class="copy-btn" data-target="hsl-value">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                 <div class="footer-column">
+                    <h4>Text & Content Tools</h4>
+                    <ul>
+                        <li><a href="/tools/word-counter.html">Word Counter</a></li>
+                        <li><a href="/tools/character-counter.html">Character Counter</a></li>
+                        <li><a href="/tools/case-converter.html">Case Converter</a></li>
+                        <li><a href="/tools/lorem-ipsum-generator.html">Lorem Ipsum Generator</a></li>
+                        <li><a href="/tools/text-to-speech.html">Text to Speech</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="/tools/bmi-calculator.html">BMI Calculator</a></li>
+                        <li><a href="/tools/age-calculator.html">Age Calculator</a></li>
+                        <li><a href="/tools/loan-calculator.html">Loan Calculator</a></li>
+                        <li><a href="/tools/unit-converter.html">Unit Converter</a></li>
+                        <li><a href="/tools/random-number-generator.html">Random Number Generator</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Developer Tools</h4>
+                    <ul>
+                        <li><a href="/tools/qr-code-generator.html">QR Code Generator</a></li>
+                        <li><a href="/tools/md5-generator.html">MD5 Generator</a></li>
+                        <li><a href="/tools/base64-converter.html">Base64 Converter</a></li>
+                        <li><a href="/tools/json-formatter.html">JSON Formatter</a></li>
+                        <li><a href="/tools/color-picker.html">Color Picker</a></li>
+                    </ul>
+                </div>
+                 <div class="footer-column">
+                    <h4>Other Utilities</h4>
+                    <ul>
+                        <li><a href="/tools/typing-test.html">Typing Test</a></li>
+                        <li><a href="/tools/stopwatch.html">Stopwatch</a></li>
+                        <li><a href="/tools/countdown-timer.html">Countdown Timer</a></li>
+                        <li><a href="/tools/image-converter.html">Image Converter</a></li>
+                        <li><a href="/tools/youtube-thumbnail-downloader.html">YouTube Thumbnail Downloader</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                        <li><a href="/blog/tool-usage-tips.html">Blog</a></li>
+                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms & Conditions</a></li>
+                        <li><a href="/disclaimer.html">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025–2026 Boost My Skills. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <div class="popup-overlay" id="contact-popup-overlay">
+        <div class="popup-content">
+            <span class="popup-close" id="popup-close-btn">&times;</span>
+            <p>If you’re facing any issue or error, please contact us.</p>
+            <div class="popup-icons">
+                <a href="https://wa.me/923427941197" target="_blank" class="whatsapp-icon" aria-label="Contact on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="mailto:boostmyskillsxyz@gmail.com" class="email-icon" aria-label="Send an Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/js/scripts.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const colorInput = document.getElementById('color-input');
+            const colorPreview = document.getElementById('color-preview');
+            const hexValue = document.getElementById('hex-value');
+            const rgbValue = document.getElementById('rgb-value');
+            const hslValue = document.getElementById('hsl-value');
+            const copyButtons = document.querySelectorAll('.copy-btn');
+
+            function updateColorValues(hex) {
+                // Update Preview
+                colorPreview.style.backgroundColor = hex;
+
+                // Update HEX
+                hexValue.value = hex.toUpperCase();
+
+                // Update RGB
+                const { r, g, b } = hexToRgb(hex);
+                rgbValue.value = `rgb(${r}, ${g}, ${b})`;
+                
+                // Update HSL
+                const { h, s, l } = rgbToHsl(r, g, b);
+                hslValue.value = `hsl(${h}, ${s}%, ${l}%)`;
+            }
+
+            colorInput.addEventListener('input', (e) => {
+                updateColorValues(e.target.value);
+            });
+
+            copyButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const targetId = e.target.dataset.target;
+                    const inputToCopy = document.getElementById(targetId);
+                    if (navigator.clipboard && inputToCopy.value) {
+                        navigator.clipboard.writeText(inputToCopy.value).then(() => {
+                            alert(`${inputToCopy.value} copied to clipboard!`);
+                        });
+                    }
+                });
+            });
+
+            function hexToRgb(hex) {
+                let r = 0, g = 0, b = 0;
+                // 3 digits
+                if (hex.length == 4) {
+                    r = parseInt(hex[1] + hex[1], 16);
+                    g = parseInt(hex[2] + hex[2], 16);
+                    b = parseInt(hex[3] + hex[3], 16);
+                }
+                // 6 digits
+                else if (hex.length == 7) {
+                    r = parseInt(hex.substring(1, 3), 16);
+                    g = parseInt(hex.substring(3, 5), 16);
+                    b = parseInt(hex.substring(5, 7), 16);
+                }
+                return { r, g, b };
+            }
+            
+            function rgbToHsl(r, g, b) {
+                r /= 255, g /= 255, b /= 255;
+                let max = Math.max(r, g, b), min = Math.min(r, g, b);
+                let h, s, l = (max + min) / 2;
+
+                if (max == min) {
+                    h = s = 0; // achromatic
+                } else {
+                    let d = max - min;
+                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                    switch (max) {
+                        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                        case g: h = (b - r) / d + 2; break;
+                        case b: h = (r - g) / d + 4; break;
+                    }
+                    h /= 6;
+                }
+                return {
+                    h: Math.round(h * 360),
+                    s: Math.round(s * 100),
+                    l: Math.round(l * 100)
+                };
+            }
+            
+            // Initial load
+            updateColorValues(colorInput.value);
+        });
+    </script>
+
+</body>
+</html>
